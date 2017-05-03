@@ -1,0 +1,11 @@
+{
+  "name": "august-server-info",
+  "version": "1.0.0",
+  "description": "Library to provide server information via a HTTP server endpoint",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ingo Renner <ingo@august.com>",
+  "license": "ISC"
+}
