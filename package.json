@@ -12,5 +12,8 @@
   "repository" : {
     "type" : "git",
     "url" : "https://bitbucket.org/august_team/august-server-info.git"
+  },
+  "dependencies": {
+    "august-extract": "git+ssh://git@bitbucket.org:august_team/august-extract.git#v0.0.2"
   }
 }
