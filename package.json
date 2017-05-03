@@ -9,11 +9,12 @@
   "author": "Ingo Renner <ingo@august.com>",
   "license": "ISC",
   "private": true,
-  "repository" : {
-    "type" : "git",
-    "url" : "https://bitbucket.org/august_team/august-server-info.git"
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/august_team/august-server-info.git"
   },
   "dependencies": {
-    "august-extract": "git+ssh://git@bitbucket.org:august_team/august-extract.git#v0.0.2"
+    "august-extract": "git+ssh://git@bitbucket.org:august_team/august-extract.git#v0.0.2",
+    "git-repo-info": "^1.4.1"
   }
 }
