@@ -2,7 +2,7 @@
   "name": "august-server-info",
   "version": "1.0.0",
   "description": "Library to provide server information via a HTTP server endpoint",
-  "main": "index.js",
+  "main": "lib/ping.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
