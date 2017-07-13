@@ -1,12 +1,13 @@
 # Server Info
 
-Provides utilities to easily add a `/ping` endpoint to a Restify server 
+Allows to easily add a `/ping` endpoint to a Restify or Express server 
 returning vital information about a service.
 
 ## Example output
 
 ```json
 {
+  "status": "ok", // overall server status
   "uptime": 3714, // uptime in seconds
   "upSince": "2017-05-12T03:13:06.462Z",
   "service": { // package.json meta data
@@ -19,9 +20,9 @@ returning vital information about a service.
     }
   },
   "connections": { // plugable connection checks
-    "mongodb": true,
-    "redis": true,
-    "rabbitmq": true
+    "mongodb": "ok",
+    "redis": "ok",
+    "rabbitmq": "ok"
   },
   "env": {
     "nodeEnv": "local",
