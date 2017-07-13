@@ -18,11 +18,11 @@ function init() {
       return true;
     });
     serverInfo.addConnectionCheck('rabbitmq', function () {
-      // determine whether database connection is up and functional
+      // determine whether RabbitMQ connection is up and functional
       return true;
     });
     serverInfo.addConnectionCheck('redis', function () {
-      // determine whether database connection is up and functional
+      // determine whether Redis connection is up and functional
       return true;
     });
   })
