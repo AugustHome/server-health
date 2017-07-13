@@ -23,6 +23,7 @@
     "email": "ingo@august.com"
   },
   "license": "ISC",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/august_team/august-server-info.git"
