@@ -2,8 +2,18 @@
   "name": "august-server-info",
   "version": "1.0.0",
   "description": "Library to provide server information via a HTTP server endpoint",
-  "keywords": ["server", "status", "uptime", "rest", "json", "ping", "health", "restify", "express"],
-  "main": "lib/ping.js",
+  "keywords": [
+    "server",
+    "status",
+    "uptime",
+    "rest",
+    "json",
+    "ping",
+    "health",
+    "restify",
+    "express"
+  ],
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,8 +26,8 @@
     "type": "git",
     "url": "https://bitbucket.org/august_team/august-server-info.git"
   },
-  "engines" : {
-    "node" : ">=0.10.37"
+  "engines": {
+    "node": ">=0.10.37"
   },
   "dependencies": {
     "august-extract": "git+ssh://git@bitbucket.org:august_team/august-extract.git#v0.0.2",
@@ -26,5 +36,8 @@
   "peerDependencies": {
     "amqplib": "^0.4.2",
     "redis": "^2.6.2"
+  },
+  "devDependencies": {
+    "restify": "^5.0.0"
   }
 }
