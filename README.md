@@ -66,3 +66,11 @@ server.listen(8080, function() {
   console.log('Listening on port 8080');
 });
 ```
+
+After adding the server info ping endpoint to a service you can do quick check
+on its status using `curl` and `jq`:  
+
+```
+> curl -s http://localhost:8080/ping | jq '.status'
+"ok"
+```
