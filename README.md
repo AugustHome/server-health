@@ -41,4 +41,28 @@ returning vital information about a service.
 
 ## Usage
 
-// TODO
+See example/server.js for a complete example.
+
+```js
+var restify = require('restify');
+var serverInfo = require('august-server-info');
+
+serverInfo.addConnectionCheck('database', function () {
+  // determine whether database connection is up and functional
+  return true;
+});
+serverInfo.addConnectionCheck('rabbitmq', function () {
+  // determine whether RabbitMQ connection is up and functional
+  return true;
+});
+serverInfo.addConnectionCheck('redis', function () {
+  // determine whether Redis connection is up and functional
+  return true;
+});
+
+var server = restify.createServer();
+serverInfo.exposePingEndpoint(server);
+server.listen(8080, function() {
+  console.log('Listening on port 8080');
+});
+```
