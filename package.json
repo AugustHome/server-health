@@ -22,8 +22,7 @@
     "name": "Ingo Renner",
     "email": "ingo@august.com"
   },
-  "license": "ISC",
-  "private": true,
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/august_team/august-server-info.git"
