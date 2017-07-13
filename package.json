@@ -15,7 +15,8 @@
   ],
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "example": "node example/server.js"
   },
   "author": {
     "name": "Ingo Renner",
@@ -38,6 +39,7 @@
     "redis": "^2.6.2"
   },
   "devDependencies": {
+    "bluebird": "^3.5.0",
     "restify": "^5.0.0"
   }
 }
