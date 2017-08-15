@@ -1,6 +1,6 @@
 # Server Info
 
-Allows to easily add a `/ping` endpoint to a Restify or Express server 
+Allows to easily add a `/health` endpoint to a Restify or Express server 
 returning vital information about a service.
 
 ## Example output
@@ -67,10 +67,10 @@ server.listen(8080, function() {
 });
 ```
 
-After adding the server info ping endpoint to a service you can do quick check
+After adding the server info health endpoint to a service you can do quick check
 on its status using `curl` and `jq`:  
 
 ```
-> curl -s http://localhost:8080/ping | jq '.status'
+> curl -s http://localhost:8080/health | jq '.status'
 "ok"
 ```
