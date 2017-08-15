@@ -34,7 +34,7 @@ function init() {
       return new Promise(function (resolve) {
         setTimeout(function () {
           resolve(true);
-        }, 1000);
+        }, Math.random() * 1000);
       });
     });
     serverInfo.addConnectionCheck('badAsyncCheck', function () {
@@ -42,7 +42,7 @@ function init() {
       return new Promise(function (resolve, reject) {
         setTimeout(function () {
           reject(new Error('bar'));
-        }, 1000);
+        }, Math.random() * 1000);
       });
     });
   })
