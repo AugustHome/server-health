@@ -61,7 +61,7 @@ serverInfo.addConnectionCheck('redis', function () {
 });
 
 var server = restify.createServer();
-serverInfo.exposePingEndpoint(server);
+serverInfo.exposeHealthEndpoint(server);
 server.listen(8080, function() {
   console.log('Listening on port 8080');
 });

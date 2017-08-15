@@ -51,7 +51,7 @@ function init() {
 function startServer() {
   var server = restify.createServer();
 
-  serverInfo.exposePingEndpoint(server);
+  serverInfo.exposeHealthEndpoint(server);
 
   // hello world
   server.get('/hello/:name', function (req, res, next) {

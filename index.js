@@ -6,6 +6,6 @@
 
 
 
-exports = module.exports = require('./lib/ping');
+exports = module.exports = require('./lib/health');
 
 exports.checks = require('./lib/connectionschecks');
