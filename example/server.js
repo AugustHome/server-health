@@ -61,6 +61,7 @@ function startServer() {
 
   return new Promise(function (resolve) {
     server.listen(8080, function () {
+      // eslint-disable-next-line no-console
       console.log('Listening on port 8080');
       resolve();
     })
