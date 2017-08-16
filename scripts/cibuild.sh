@@ -12,4 +12,12 @@ cd "$(dirname "$0")/.."
 APP_ROOT="$(pwd)"
 
 ./scripts/bootstrap.sh
+
+echo "===> Running Linter ..."
+npm run lint --silent 2>&1
+if [ "$?" -gt "0" ]; then
+  echo "Lint error(s) found in above file(s)."
+  exit 1
+fi
+
 ./scripts/test.sh
