@@ -46,7 +46,7 @@ fi
 
 # create coverage report?
 if [ ${USE_COVERAGE} ]; then
-  MOCHA="$PWD/node_modules/.bin/nyc cover _mocha --"
+  MOCHA="$PWD/node_modules/.bin/nyc --reporter=html --reporter=text mocha"
 fi
 
 

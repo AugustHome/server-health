@@ -16,6 +16,7 @@
   "main": "index.js",
   "scripts": {
     "test": "scripts/test.sh",
+    "test:coverage": "scripts/test.sh -c",
     "example": "node example/server.js"
   },
   "author": {
@@ -37,6 +38,7 @@
     "bluebird": "^3.5.0",
     "chai": "^4.1.0",
     "mocha": "^3.4.2",
+    "nyc": "^10.3.2",
     "restify": "^5.0.0",
     "sinon": "^3.2.0"
   }
