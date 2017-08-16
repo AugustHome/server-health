@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# script: test
+# description: Run the test suite, optionally with coverage report.
+
+
 clear
 
 export NODE_ENV=test;

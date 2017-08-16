@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# script: update
+# description: update the application's required environment like database migrations and dependencies
+
+
 set -e
 [ -z "$DEBUG" ] || set -x
 

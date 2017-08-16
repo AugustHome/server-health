@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# script: bootstrap
+# description: resolve all dependencies required for the app to run.
+
+
 set -e
 [ -z "$DEBUG" ] || set -x
 
