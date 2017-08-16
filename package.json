@@ -16,6 +16,9 @@
   "main": "index.js",
   "scripts": {
     "test": "scripts/test.sh",
+    "bootstrap": "scripts/bootstrap.sh",
+    "setup": "scripts/setup.sh",
+    "update": "scripts/update.sh",
     "test:coverage": "scripts/test.sh -c",
     "example": "node example/server.js"
   },
