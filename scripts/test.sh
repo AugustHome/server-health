@@ -56,7 +56,7 @@ fi
 
 
 # environment information
-echo "Node.js version: $($NODE --version)"
+echo "Node.js version: $(${NODE} --version)"
 echo "NODE_ENV=${NODE_ENV}"
 echo ""
 
