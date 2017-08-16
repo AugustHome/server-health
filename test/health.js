@@ -8,7 +8,7 @@ var http = require('http');
 var serverHealth = require('../lib/health');
 
 
-describe('server info', function () {
+describe('server health', function () {
 
   describe('exposeHealthEndpoint', function () {
 

@@ -1,7 +1,7 @@
 {
-  "name": "august-server-info",
+  "name": "august-server-health",
   "version": "1.0.0",
-  "description": "Library to provide server information via a HTTP server endpoint",
+  "description": "Library to provide server health information via a HTTP server endpoint",
   "keywords": [
     "server",
     "status",
@@ -29,7 +29,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/august_team/august-server-info.git"
+    "url": "https://bitbucket.org/august_team/august-server-health.git"
   },
   "engines": {
     "node": ">=0.10.37"

@@ -1,4 +1,4 @@
-# Server Info
+# Server Health
 
 Allows to easily add a `/health` endpoint to a Restify or Express server 
 returning vital information about a service.
@@ -33,7 +33,7 @@ returning vital information about a service.
   },
   "git": {
     "commitHash": "c5d7c311ac8b5de7e309e18b821225d471c2cf1d",
-    "branchName": "server-info-integration",
+    "branchName": "server-health-integration",
     "tag": null
   }
 }
@@ -45,23 +45,23 @@ See example/server.js for a complete example.
 
 ```js
 var restify = require('restify');
-var serverInfo = require('august-server-info');
+var serverHealth = require('august-server-health');
 
-serverInfo.addConnectionCheck('database', function () {
+serverHealth.addConnectionCheck('database', function () {
   // determine whether database connection is up and functional
   return true;
 });
-serverInfo.addConnectionCheck('rabbitmq', function () {
+serverHealth.addConnectionCheck('rabbitmq', function () {
   // determine whether RabbitMQ connection is up and functional
   return true;
 });
-serverInfo.addConnectionCheck('redis', function () {
+serverHealth.addConnectionCheck('redis', function () {
   // determine whether Redis connection is up and functional
   return true;
 });
 
 var server = restify.createServer();
-serverInfo.exposeHealthEndpoint(server);
+serverHealth.exposeHealthEndpoint(server);
 server.listen(8080, function() {
   console.log('Listening on port 8080');
 });
