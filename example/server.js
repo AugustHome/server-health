@@ -3,7 +3,7 @@
 var restify = require('restify');
 var Promise = require('bluebird');
 
-var serverInfo = require('../index');
+var serverHealth = require('../index');
 
 
 function init() {
@@ -13,23 +13,23 @@ function init() {
     // connect to Redis
   ]).
   then(function () {
-    serverInfo.addConnectionCheck('database', function () {
+    serverHealth.addConnectionCheck('database', function () {
       // determine whether database connection is up and functional
       return true;
     });
-    serverInfo.addConnectionCheck('rabbitmq', function () {
+    serverHealth.addConnectionCheck('rabbitmq', function () {
       // determine whether RabbitMQ connection is up and functional
       return true;
     });
-    serverInfo.addConnectionCheck('redis', function () {
+    serverHealth.addConnectionCheck('redis', function () {
       // determine whether Redis connection is up and functional
       return true;
     });
-    serverInfo.addConnectionCheck('errorCheck', function () {
+    serverHealth.addConnectionCheck('errorCheck', function () {
       // throws a sync Error
       throw new Error('foo');
     });
-    serverInfo.addConnectionCheck('goodAsyncCheck', function () {
+    serverHealth.addConnectionCheck('goodAsyncCheck', function () {
       // async check returning up/functional connection
       return new Promise(function (resolve) {
         setTimeout(function () {
@@ -37,7 +37,7 @@ function init() {
         }, Math.random() * 1000);
       });
     });
-    serverInfo.addConnectionCheck('badAsyncCheck', function () {
+    serverHealth.addConnectionCheck('badAsyncCheck', function () {
       // rejected async check
       return new Promise(function (resolve, reject) {
         setTimeout(function () {
@@ -51,7 +51,7 @@ function init() {
 function startServer() {
   var server = restify.createServer();
 
-  serverInfo.exposeHealthEndpoint(server);
+  serverHealth.exposeHealthEndpoint(server);
 
   // hello world
   server.get('/hello/:name', function (req, res, next) {
