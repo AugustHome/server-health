@@ -35,6 +35,9 @@
   },
   "devDependencies": {
     "bluebird": "^3.5.0",
-    "restify": "^5.0.0"
+    "chai": "^4.1.0",
+    "mocha": "^3.4.2",
+    "restify": "^5.0.0",
+    "sinon": "^3.2.0"
   }
 }
