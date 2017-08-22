@@ -1,16 +1,50 @@
 {
-  "name": "august-server-info",
+  "name": "august-server-health",
   "version": "1.0.0",
-  "description": "Library to provide server information via a HTTP server endpoint",
+  "description": "Library to provide server health information via a HTTP server endpoint",
+  "keywords": [
+    "server",
+    "status",
+    "uptime",
+    "rest",
+    "json",
+    "ping",
+    "health",
+    "restify",
+    "express"
+  ],
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "scripts/test.sh",
+    "lint": "./node_modules/.bin/eslint --ext .js lib test example",
+    "bootstrap": "scripts/bootstrap.sh",
+    "setup": "scripts/setup.sh",
+    "update": "scripts/update.sh",
+    "test:coverage": "scripts/test.sh -c",
+    "example": "node example/server.js"
   },
-  "author": "Ingo Renner <ingo@august.com>",
-  "license": "ISC",
-  "private": true,
-  "repository" : {
-    "type" : "git",
-    "url" : "https://bitbucket.org/august_team/august-server-info.git"
+  "author": {
+    "name": "Ingo Renner",
+    "email": "ingo@august.com"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/august_team/august-server-health.git"
+  },
+  "engines": {
+    "node": ">=0.10.37"
+  },
+  "dependencies": {
+    "git-repo-info": "^1.4.1"
+  },
+  "devDependencies": {
+    "bluebird": "^3.5.0",
+    "chai": "^4.1.0",
+    "eslint": "^2.13.1",
+    "mocha": "^3.4.2",
+    "nyc": "^10.3.2",
+    "restify": "^5.0.0",
+    "sinon": "^3.2.0"
   }
 }
