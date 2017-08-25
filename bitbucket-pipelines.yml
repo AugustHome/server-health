@@ -1,0 +1,7 @@
+image: augusthome/node-pipeline:6.11.1
+pipelines:
+  default:
+    - step:
+        script:
+          - export TERM=dumb
+          - ./scripts/cibuild.sh
