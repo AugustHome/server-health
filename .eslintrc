@@ -1,0 +1,33 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2016,
+    "ecmaFeatures": {
+      "globalReturn": true,
+      "impliedStrict": true
+    }
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "require-jsdoc": [2, {
+      "require": {
+        "FunctionDeclaration": true,
+        "MethodDefinition": true,
+        "ClassDeclaration": true
+      }
+    }],
+    "valid-jsdoc": [2, {
+      "requireReturn": true,
+      "requireReturnType": true
+    }],
+    "yoda": [1, "never"],
+    "no-else-return": 2
+  }
+}
