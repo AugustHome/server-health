@@ -5,7 +5,11 @@ const Promise = require('bluebird');
 
 const serverHealth = require('../index');
 
-
+/**
+ * Initializes any connections and libraries
+ *
+ * @return {Promise} Resolves after initialization
+ */
 function init() {
   return Promise.all([
     // connect to database
@@ -48,6 +52,11 @@ function init() {
   })
 }
 
+/**
+ * Starts the server
+ *
+ * @return {void}
+ */
 function startServer() {
   const server = restify.createServer();
 
