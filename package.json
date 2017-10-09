@@ -33,7 +33,7 @@
     "url": "https://bitbucket.org/august_team/august-server-health.git"
   },
   "engines": {
-    "node": ">=0.10.37"
+    "node": ">=6.11.1"
   },
   "dependencies": {
     "git-repo-info": "^1.4.1"
