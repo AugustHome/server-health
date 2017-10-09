@@ -39,17 +39,17 @@
     "git-repo-info": "^1.4.1"
   },
   "devDependencies": {
-    "bluebird": "^3.5.0",
-    "chai": "^4.1.0",
-    "mocha": "^3.4.2",
     "august-dot-files": "git+ssh://git@bitbucket.org/august_team/august-dot-files.git#v2.2.0",
+    "bluebird": "^3.5.1",
+    "chai": "^4.1.2",
     "eslint": "^4.8.0",
     "eslint-config-prettier": "^2.6.0",
     "husky": "^0.14.3",
     "lint-staged": "^4.2.3",
+    "mocha": "^4.0.1",
     "nyc": "^10.3.2",
-    "restify": "^5.0.0",
-    "sinon": "^3.2.0"
     "prettier": "^1.7.4",
+    "restify": "^6.0.1",
+    "sinon": "^4.0.1"
   }
 }
