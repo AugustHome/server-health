@@ -1,9 +1,9 @@
 'use strict';
 
-var restify = require('restify');
-var Promise = require('bluebird');
+const restify = require('restify');
+const Promise = require('bluebird');
 
-var serverHealth = require('../index');
+const serverHealth = require('../index');
 
 
 function init() {
@@ -49,7 +49,7 @@ function init() {
 }
 
 function startServer() {
-  var server = restify.createServer();
+  const server = restify.createServer();
 
   serverHealth.exposeHealthEndpoint(server);
 

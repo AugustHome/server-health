@@ -44,8 +44,8 @@ returning vital information about a service.
 See example/server.js for a complete example.
 
 ```js
-var restify = require('restify');
-var serverHealth = require('august-server-health');
+const restify = require('restify');
+const serverHealth = require('august-server-health');
 
 serverHealth.addConnectionCheck('database', function () {
   // determine whether database connection is up and functional
@@ -59,8 +59,7 @@ serverHealth.addConnectionCheck('redis', function () {
   // determine whether Redis connection is up and functional
   return true;
 });
-
-var server = restify.createServer();
+const server = restify.createServer();
 serverHealth.exposeHealthEndpoint(server);
 server.listen(8080, function() {
   console.log('Listening on port 8080');

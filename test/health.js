@@ -1,11 +1,11 @@
 'use strict';
 
-var assert = require('chai').assert;
-var sinon = require('sinon');
-var restify = require('restify');
-var http = require('http');
+const assert = require('chai').assert;
+const sinon = require('sinon');
+const restify = require('restify');
+const http = require('http');
 
-var serverHealth = require('../lib/health');
+const serverHealth = require('../lib/health');
 
 
 describe('server health', function () {
@@ -13,7 +13,7 @@ describe('server health', function () {
   describe('exposeHealthEndpoint', function () {
 
     it('adds a health endpoint', function () {
-      var server = restify.createServer();
+      const server = restify.createServer();
       serverHealth.exposeHealthEndpoint(server);
 
       assert.property(server.routes, 'gethealth');
@@ -23,9 +23,9 @@ describe('server health', function () {
 
   describe('healthHandler', function () {
 
-    var server;
-    var checkStubOne;
-    var checkStubTwo;
+    let server;
+    let checkStubOne;
+    let checkStubTwo;
 
     before(function setupServer(done) {
       checkStubOne = sinon.stub().returns(true);
