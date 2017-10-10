@@ -66,7 +66,7 @@ describe('server health', function () {
     let checkStubOne;
     let checkStubTwo;
 
-    before(function setupServer(done) {
+    beforeEach(function setupServer(done) {
       checkStubOne = sinon.stub().returns(true);
       serverHealth.addConnectionCheck('one', checkStubOne);
       checkStubTwo = sinon.stub().returns(true);
@@ -80,7 +80,7 @@ describe('server health', function () {
       })
     });
 
-    after(function shutdownServer() {
+    afterEach(function shutdownServer() {
       server.close();
     });
 
