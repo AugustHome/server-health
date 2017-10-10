@@ -86,11 +86,23 @@ describe('server health', function () {
 
     it('calls all connection checks', () => {
       return getHealth()
-      .then((response) => {
-        assert.equal(response.statusCode, 200);
-
+      .then(() => {
         assert.isTrue(checkStubOne.called);
         assert.isTrue(checkStubTwo.called);
+      });
+    });
+
+    it('returns a 200 if all connection checks succeed', () => {
+      return getHealth()
+      .then((response) => {
+        assert.equal(response.statusCode, 200);
+      });
+    });
+
+    it('returns a status=ok if all connection checks succeed', () => {
+      return getHealth()
+      .then((response) => {
+        assert.equal(response.body.status, 'ok');
       });
     });
 
