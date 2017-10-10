@@ -167,6 +167,30 @@ describe('server health', function () {
 
     });
 
+    describe('unhealthy server', () => {
+
+      before(function addUnhealthyCheck() {
+        serverHealth.addConnectionCheck(
+          'failingConnectionTest',
+          sinon.stub().returns(false)
+        );
+      });
+
+      it('returns a 500 if any connection check fails', () => {
+        return getHealth()
+        .then((response) => {
+          assert.equal(response.statusCode, 500);
+        });
+      });
+
+      it('returns a status=fail listing the failing connections', () => {
+        return getHealth()
+        .then((response) => {
+          assert.equal(response.body.status, 'fail:failingConnectionTest');
+        });
+      });
+
+    });
   });
 
 });
