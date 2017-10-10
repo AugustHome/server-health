@@ -29,22 +29,7 @@ describe('server health', function () {
         port: 8080,
         path: path
       }, (response) => {
-        const contentType = response.headers['content-type'];
-        let error;
         let rawData = '';
-
-        if (response.statusCode !== 200) {
-          error = new Error(`Request Failed. Status Code: ${response.statusCode}`);
-        } else if (!/^application\/json/.test(contentType)) {
-          error = new Error('Invalid content-type.\n' +
-            `Expected application/json but received ${contentType}`);
-        }
-
-        if (error) {
-          reject(error.message);
-          response.resume();
-          return;
-        }
 
         response.setEncoding('utf8');
         response.on('data', (chunk) => { rawData += chunk; });
@@ -88,6 +73,7 @@ describe('server health', function () {
       serverHealth.addConnectionCheck('two', checkStubTwo);
 
       server = restify.createServer();
+      server.use(restify.plugins.queryParser());
       serverHealth.exposeHealthEndpoint(server);
       server.listen(8080, function () {
         done();
@@ -106,6 +92,67 @@ describe('server health', function () {
         assert.isTrue(checkStubOne.called);
         assert.isTrue(checkStubTwo.called);
       });
+    });
+
+    describe('Property filtering', () => {
+
+      it('returns all core properties when not filtered', () => {
+        return getHealth()
+        .then((response) => {
+          const status = response.body;
+
+          assert.property(status, 'status');
+          assert.property(status, 'uptime');
+          assert.property(status, 'upSince');
+
+          assert.nestedProperty(status, 'service.name');
+          assert.nestedProperty(status, 'service.description');
+          assert.nestedProperty(status, 'service.version');
+
+          assert.property(status, 'connections');
+          assert.isObject(status.connections, 'object');
+
+          assert.nestedProperty(status, 'env.nodeEnv');
+          assert.nestedProperty(status, 'env.nodeVersion');
+          assert.nestedProperty(status, 'env.processName');
+          assert.nestedProperty(status, 'env.pid');
+          assert.nestedProperty(status, 'env.cwd');
+
+          assert.nestedProperty(status, 'git.commitHash');
+          assert.nestedProperty(status, 'git.branchName');
+          assert.nestedProperty(status, 'git.tag');
+        });
+      });
+
+      it('returns only one selected property when filtering by one value', () => {
+        return getHealth('filter=status')
+        .then((response) => {
+          const status = response.body;
+
+          assert.lengthOf(Object.keys(status), 1);
+          assert.property(status, 'status');
+        });
+      });
+
+      it('returns all selected properties when filtering by multiple values', () => {
+        return getHealth('filter=status,env.nodeEnv')
+        .then((response) => {
+          const status = response.body;
+
+          assert.lengthOf(Object.keys(status), 2);
+          assert.property(status, 'status');
+          assert.nestedProperty(status, 'env.nodeEnv');
+        });
+      });
+
+      it('returns a 400 error when filtering by an unknown property', () => {
+        return getHealth('filter=foo')
+        .then((response) => {
+          assert.equal(response.statusCode, 400);
+          assert.equal(response.body.message, 'Invalid filter path "foo"')
+        });
+      });
+
     });
 
   });

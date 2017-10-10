@@ -59,6 +59,7 @@ function init() {
  */
 function startServer() {
   const server = restify.createServer();
+  server.use(restify.plugins.queryParser());
 
   serverHealth.exposeHealthEndpoint(server);
 

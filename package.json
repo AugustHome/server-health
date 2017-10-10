@@ -36,7 +36,9 @@
     "node": ">=6.11.1"
   },
   "dependencies": {
-    "git-repo-info": "^1.4.1"
+    "git-repo-info": "^1.4.1",
+    "lodash": "^4.17.4",
+    "restify-errors": "^5.0.0"
   },
   "devDependencies": {
     "august-dot-files": "git+ssh://git@bitbucket.org/august_team/august-dot-files.git#v2.2.0",
