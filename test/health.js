@@ -10,9 +10,9 @@ const serverHealth = require('../lib/health');
 
 describe('server health', function () {
 
-  describe('exposeHealthEndpoint', function () {
+  describe('exposeHealthEndpoint', () => {
 
-    it('adds a health endpoint', function () {
+    it('adds a health endpoint', () => {
       const server = restify.createServer();
       serverHealth.exposeHealthEndpoint(server);
 
@@ -21,7 +21,7 @@ describe('server health', function () {
 
   });
 
-  describe('healthHandler', function () {
+  describe('healthHandler', () => {
 
     let server;
     let checkStubOne;
