@@ -14,14 +14,20 @@ describe('server health', function () {
   /**
    * Helper function to run requests against the health endpoint
    *
+   * @param {string} [queryString] - optional query string
    * @return {Promise.<Object>} Resolves over the server response with parsed body
    */
-  function getHealth() {
+  function getHealth(queryString) {
+    let path = '/health';
+    if (queryString) {
+      path += '?' + queryString;
+    }
+
     return new Promise(function (resolve, reject) {
       http.get({
         host: 'localhost',
         port: 8080,
-        path: '/health'
+        path: path
       }, (response) => {
         const contentType = response.headers['content-type'];
         let error;
