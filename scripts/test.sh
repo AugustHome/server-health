@@ -37,7 +37,7 @@ done
 
 
 MOCHA="$PWD/node_modules/.bin/mocha"
-MOCHA_OPTS="--ui bdd --reporter=dot"
+MOCHA_OPTS="--ui bdd --reporter=list"
 
 # what to test
 if [ ${TEST_FILE} ]; then
