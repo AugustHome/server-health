@@ -191,6 +191,31 @@ describe('server health', function () {
       });
 
     });
+
+    describe('invalid health check response', () => {
+
+      before(function addUnhealthyCheck() {
+        serverHealth.addConnectionCheck(
+          'invalidHealthCheck',
+          sinon.stub().returns("invalid response")
+        );
+      });
+
+      it('returns a 500 if any connection check returns a non-boolean', () => {
+        return getHealth()
+        .then((response) => {
+          assert.equal(response.statusCode, 500);
+        });
+      });
+
+      it('reports the invalid connection check', () => {
+        return getHealth()
+        .then((response) => {
+          assert.include(response.body.message, 'invalidHealthCheck');
+        });
+      });
+
+    });
   });
 
 });
