@@ -197,7 +197,7 @@ describe('server health', function () {
       before(function addUnhealthyCheck() {
         serverHealth.addConnectionCheck(
           'invalidHealthCheck',
-          sinon.stub().returns("invalid response")
+          sinon.stub().returns('invalid response')
         );
       });
 
