@@ -9,7 +9,7 @@ const http = require('http');
 const serverHealth = require('../lib/health');
 
 
-describe('server health', function () {
+describe('server health', () => {
 
   /**
    * Helper function to run requests against the health endpoint
@@ -23,7 +23,7 @@ describe('server health', function () {
       path += '?' + queryString;
     }
 
-    return new Promise(function (resolve, reject) {
+    return new Promise(((resolve, reject) => {
       http.get({
         host: 'localhost',
         port: 8080,
@@ -42,10 +42,10 @@ describe('server health', function () {
           }
         });
 
-      }).on('error', function (err) {
+      }).on('error', (err) => {
         reject(err);
       });
-    });
+    }));
   }
 
 
@@ -75,7 +75,7 @@ describe('server health', function () {
       server = restify.createServer();
       server.use(restify.plugins.queryParser());
       serverHealth.exposeHealthEndpoint(server);
-      server.listen(8080, function () {
+      server.listen(8080, () => {
         done();
       })
     });

@@ -28,6 +28,9 @@
       "requireReturnType": true
     }],
     "yoda": [1, "never"],
-    "no-else-return": 2
+    "no-else-return": 2,
+    "no-var": 2,
+    "prefer-arrow-callback": [2, { "allowNamedFunctions": true }],
+    "prefer-const": [2, { "destructuring": "all" }],
   }
 }

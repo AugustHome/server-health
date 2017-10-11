@@ -35,19 +35,19 @@ function init() {
     });
     serverHealth.addConnectionCheck('goodAsyncCheck', () => {
       // async check returning up/functional connection
-      return new Promise(function (resolve) {
-        setTimeout(function () {
+      return new Promise(((resolve) => {
+        setTimeout(() => {
           resolve(true);
         }, Math.random() * 1000);
-      });
+      }));
     });
     serverHealth.addConnectionCheck('badAsyncCheck', () => {
       // rejected async check
-      return new Promise(function (resolve, reject) {
-        setTimeout(function () {
+      return new Promise(((resolve, reject) => {
+        setTimeout(() => {
           reject(new Error('bar'));
         }, Math.random() * 1000);
-      });
+      }));
     });
   })
 }
