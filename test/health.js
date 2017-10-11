@@ -23,7 +23,7 @@ describe('server health', () => {
       path += '?' + queryString;
     }
 
-    return new Promise(((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       http.get({
         host: 'localhost',
         port: 8080,
@@ -45,7 +45,7 @@ describe('server health', () => {
       }).on('error', (err) => {
         reject(err);
       });
-    }));
+    });
   }
 
 
