@@ -41,11 +41,13 @@ returning vital information about a service.
 
 ## Usage
 
+### Adding the /health endpoint to a restify server 
+
 See example/server.js for a complete example.
 
 ```js
-var restify = require('restify');
-var serverHealth = require('august-server-health');
+const restify = require('restify');
+const serverHealth = require('august-server-health');
 
 serverHealth.addConnectionCheck('database', function () {
   // determine whether database connection is up and functional
@@ -59,13 +61,14 @@ serverHealth.addConnectionCheck('redis', function () {
   // determine whether Redis connection is up and functional
   return true;
 });
-
-var server = restify.createServer();
+const server = restify.createServer();
 serverHealth.exposeHealthEndpoint(server);
 server.listen(8080, function() {
   console.log('Listening on port 8080');
 });
 ```
+
+### Querying from the command line
 
 After adding the server info health endpoint to a service you can do quick check
 on its status using `curl` and `jq`:  
@@ -73,4 +76,16 @@ on its status using `curl` and `jq`:
 ```
 > curl -s http://localhost:8080/health | jq '.status'
 "ok"
+```
+
+### Filtering the response directly
+
+Instead of filtering the whole response on the client the library also supports
+filtering server side by specifying a "filter" query string parameter.  
+
+Multiple properties can be queried by separating them by comma: `filter=status,env.nodeEnv`  
+
+```
+> curl -s http://localhost:8080/health?status
+{"status":"ok"}
 ```

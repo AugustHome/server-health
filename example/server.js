@@ -1,66 +1,76 @@
 'use strict';
 
-var restify = require('restify');
-var Promise = require('bluebird');
+const restify = require('restify');
+const Promise = require('bluebird');
 
-var serverHealth = require('../index');
+const serverHealth = require('../index');
 
-
+/**
+ * Initializes any connections and libraries
+ *
+ * @return {Promise} Resolves after initialization
+ */
 function init() {
   return Promise.all([
     // connect to database
     // connect to RabbitMQ
     // connect to Redis
   ]).
-  then(function () {
-    serverHealth.addConnectionCheck('database', function () {
+  then(() => {
+    serverHealth.addConnectionCheck('database', () => {
       // determine whether database connection is up and functional
       return true;
     });
-    serverHealth.addConnectionCheck('rabbitmq', function () {
+    serverHealth.addConnectionCheck('rabbitmq', () => {
       // determine whether RabbitMQ connection is up and functional
       return true;
     });
-    serverHealth.addConnectionCheck('redis', function () {
+    serverHealth.addConnectionCheck('redis', () => {
       // determine whether Redis connection is up and functional
       return true;
     });
-    serverHealth.addConnectionCheck('errorCheck', function () {
+    serverHealth.addConnectionCheck('errorCheck', () => {
       // throws a sync Error
       throw new Error('foo');
     });
-    serverHealth.addConnectionCheck('goodAsyncCheck', function () {
+    serverHealth.addConnectionCheck('goodAsyncCheck', () => {
       // async check returning up/functional connection
-      return new Promise(function (resolve) {
-        setTimeout(function () {
+      return new Promise(((resolve) => {
+        setTimeout(() => {
           resolve(true);
         }, Math.random() * 1000);
-      });
+      }));
     });
-    serverHealth.addConnectionCheck('badAsyncCheck', function () {
+    serverHealth.addConnectionCheck('badAsyncCheck', () => {
       // rejected async check
-      return new Promise(function (resolve, reject) {
-        setTimeout(function () {
+      return new Promise(((resolve, reject) => {
+        setTimeout(() => {
           reject(new Error('bar'));
         }, Math.random() * 1000);
-      });
+      }));
     });
   })
 }
 
+/**
+ * Starts the server
+ *
+ * @return {void}
+ */
 function startServer() {
-  var server = restify.createServer();
+  const server = restify.createServer();
+  server.use(restify.plugins.queryParser());
 
   serverHealth.exposeHealthEndpoint(server);
 
   // hello world
-  server.get('/hello/:name', function (req, res, next) {
+  server.get('/hello/:name', (req, res, next) => {
     res.send('hello ' + req.params.name);
     next();
   });
 
-  return new Promise(function (resolve) {
-    server.listen(8080, function () {
+  return new Promise((resolve) => {
+    server.listen(8080, () => {
       // eslint-disable-next-line no-console
       console.log('Listening on port 8080');
       resolve();
