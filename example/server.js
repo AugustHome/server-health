@@ -16,24 +16,24 @@ function init() {
     // connect to RabbitMQ
     // connect to Redis
   ]).
-  then(function () {
-    serverHealth.addConnectionCheck('database', function () {
+  then(() => {
+    serverHealth.addConnectionCheck('database', () => {
       // determine whether database connection is up and functional
       return true;
     });
-    serverHealth.addConnectionCheck('rabbitmq', function () {
+    serverHealth.addConnectionCheck('rabbitmq', () => {
       // determine whether RabbitMQ connection is up and functional
       return true;
     });
-    serverHealth.addConnectionCheck('redis', function () {
+    serverHealth.addConnectionCheck('redis', () => {
       // determine whether Redis connection is up and functional
       return true;
     });
-    serverHealth.addConnectionCheck('errorCheck', function () {
+    serverHealth.addConnectionCheck('errorCheck', () => {
       // throws a sync Error
       throw new Error('foo');
     });
-    serverHealth.addConnectionCheck('goodAsyncCheck', function () {
+    serverHealth.addConnectionCheck('goodAsyncCheck', () => {
       // async check returning up/functional connection
       return new Promise(function (resolve) {
         setTimeout(function () {
@@ -41,7 +41,7 @@ function init() {
         }, Math.random() * 1000);
       });
     });
-    serverHealth.addConnectionCheck('badAsyncCheck', function () {
+    serverHealth.addConnectionCheck('badAsyncCheck', () => {
       // rejected async check
       return new Promise(function (resolve, reject) {
         setTimeout(function () {
@@ -64,13 +64,13 @@ function startServer() {
   serverHealth.exposeHealthEndpoint(server);
 
   // hello world
-  server.get('/hello/:name', function (req, res, next) {
+  server.get('/hello/:name', (req, res, next) => {
     res.send('hello ' + req.params.name);
     next();
   });
 
-  return new Promise(function (resolve) {
-    server.listen(8080, function () {
+  return new Promise((resolve) => {
+    server.listen(8080, () => {
       // eslint-disable-next-line no-console
       console.log('Listening on port 8080');
       resolve();
