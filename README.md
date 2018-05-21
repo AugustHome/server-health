@@ -1,6 +1,6 @@
 # Server Health
 
-Allows to easily add a `/health` endpoint to a Restify or Express server 
+Allows to easily add a `/health` endpoint to a Restify, Express or native node http server 
 returning vital information about a service.
 
 ## Example output
@@ -88,4 +88,22 @@ Multiple properties can be queried by separating them by comma: `filter=status,e
 ```
 > curl -s http://localhost:8080/health?status
 {"status":"ok"}
+```
+
+### Standalone Node Http Health Check Server
+For services that do not have an existing Restify, Express, or Hapi Server, you can create a
+native Node Http Server that only has one route, that also provides the same health
+checks as Restify, Express, and Hapi Servers.
+```javascript
+const serverHealth = require('august-server-health');
+serverHealth.addConnectionCheck('database', function () {
+  // determine whether database connection is up and functional
+  return true;
+});
+const options = {
+  endpoint: '/health',  //optional and will default to `/health`
+};
+const nodeServer = serverHealth.createNodeHttpHealthCheckServer();
+nodeServer.listen(8080);
+
 ```

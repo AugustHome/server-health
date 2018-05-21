@@ -99,6 +99,19 @@ describe('server health', () => {
         this._server.stop(done);
       },
     },
+    {
+      _server: null,
+      name: 'node-http',
+      start(done) {
+        const options = { endpoint: '/health' };
+        this._server = serverHealth.createNodeHttpHealthCheckServer(options);
+        this._server.listen(8080);
+        done();
+      },
+      stop(done) {
+        this._server.close(done);
+      },
+    },
   ];
 
   for (const server of servers) {
