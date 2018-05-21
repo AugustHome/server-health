@@ -39,21 +39,28 @@
     "bluebird": "^3.5.1",
     "boom": "^7.2.0",
     "git-repo-info": "^1.4.1",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.10",
     "restify-errors": "^5.0.0"
   },
   "devDependencies": {
-    "august-dot-files": "git+ssh://git@bitbucket.org/august_team/august-dot-files.git#v2.2.0",
+    "august-dot-files": "git+ssh://git@bitbucket.org/august_team/august-dot-files.git#v2.4.3",
     "chai": "^4.1.2",
     "eslint": "^4.8.0",
     "eslint-config-prettier": "^2.6.0",
+    "eslint-plugin-security": "^1.4.0",
     "hapi": "^16.6.3",
-    "husky": "^0.14.3",
+    "husky": "^1.0.0-rc.6",
     "lint-staged": "^4.2.3",
-    "mocha": "^4.0.1",
+    "mocha": "^5.2.0",
+    "mocha-multi": "^1.0.1",
     "nyc": "^10.3.2",
     "prettier": "^1.7.4",
     "restify": "^6.0.1",
     "sinon": "^4.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "scripts/pre-commit"
+    }
   }
 }

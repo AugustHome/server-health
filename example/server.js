@@ -15,8 +15,7 @@ function init() {
     // connect to database
     // connect to RabbitMQ
     // connect to Redis
-  ]).
-  then(() => {
+  ]).then(() => {
     serverHealth.addConnectionCheck('database', () => {
       // determine whether database connection is up and functional
       return true;
@@ -35,21 +34,21 @@ function init() {
     });
     serverHealth.addConnectionCheck('goodAsyncCheck', () => {
       // async check returning up/functional connection
-      return new Promise(((resolve) => {
+      return new Promise(resolve => {
         setTimeout(() => {
           resolve(true);
         }, Math.random() * 1000);
-      }));
+      });
     });
     serverHealth.addConnectionCheck('badAsyncCheck', () => {
       // rejected async check
-      return new Promise(((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         setTimeout(() => {
           reject(new Error('bar'));
         }, Math.random() * 1000);
-      }));
+      });
     });
-  })
+  });
 }
 
 /**
@@ -69,14 +68,13 @@ function startServer() {
     next();
   });
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     server.listen(8080, () => {
       // eslint-disable-next-line no-console
       console.log('Listening on port 8080');
       resolve();
-    })
-  })
+    });
+  });
 }
-
 
 init().then(startServer);

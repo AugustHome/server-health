@@ -9,9 +9,7 @@ const http = require('http');
 
 const serverHealth = require('../lib/health');
 
-
 describe('server health', () => {
-
   /**
    * Helper function to run requests against the health endpoint
    *
@@ -25,33 +23,38 @@ describe('server health', () => {
     }
 
     return new Promise((resolve, reject) => {
-      http.get({
-        host: 'localhost',
-        port: 8080,
-        path: path
-      }, (response) => {
-        let rawData = '';
+      http
+        .get(
+          {
+            host: 'localhost',
+            port: 8080,
+            path: path,
+          },
+          response => {
+            let rawData = '';
 
-        response.setEncoding('utf8');
-        response.on('data', (chunk) => { rawData += chunk; });
-        response.on('end', () => {
-          try {
-            response.body = JSON.parse(rawData);
-            return resolve(response);
-          } catch (err) {
-            reject(err);
+            response.setEncoding('utf8');
+            response.on('data', chunk => {
+              rawData += chunk;
+            });
+            response.on('end', () => {
+              try {
+                response.body = JSON.parse(rawData);
+
+                return resolve(response);
+              } catch (err) {
+                reject(err);
+              }
+            });
           }
+        )
+        .on('error', err => {
+          reject(err);
         });
-
-      }).on('error', (err) => {
-        reject(err);
-      });
     });
   }
 
-
   describe('exposeHealthEndpoint', () => {
-
     it('adds a health endpoint with restify', () => {
       const server = restify.createServer();
       serverHealth.exposeHealthEndpoint(server);
@@ -67,7 +70,6 @@ describe('server health', () => {
       const hasHealthRoute = server.table()[0].table.some(({ path }) => path === '/health');
       assert.isTrue(hasHealthRoute);
     });
-
   });
 
   const servers = [
@@ -101,7 +103,6 @@ describe('server health', () => {
 
   for (const server of servers) {
     describe(`healthHandler for ${server.name}`, () => {
-
       let checkStubOne;
       let checkStubTwo;
 
@@ -111,7 +112,7 @@ describe('server health', () => {
         checkStubTwo = sinon.stub().returns(true);
         serverHealth.addConnectionCheck('two', checkStubTwo);
 
-        server.start(done)
+        server.start(done);
       });
 
       afterEach(function shutdownServer(done) {
@@ -123,32 +124,27 @@ describe('server health', () => {
       });
 
       it('calls all connection checks', () => {
-        return getHealth()
-        .then(() => {
+        return getHealth().then(() => {
           assert.isTrue(checkStubOne.called);
           assert.isTrue(checkStubTwo.called);
         });
       });
 
       it('returns a 200 if all connection checks succeed', () => {
-        return getHealth()
-        .then((response) => {
+        return getHealth().then(response => {
           assert.equal(response.statusCode, 200);
         });
       });
 
       it('returns a status=ok if all connection checks succeed', () => {
-        return getHealth()
-        .then((response) => {
+        return getHealth().then(response => {
           assert.equal(response.body.status, 'ok');
         });
       });
 
       describe('Property filtering', () => {
-
         it('returns all core properties when not filtered', () => {
-          return getHealth()
-          .then((response) => {
+          return getHealth().then(response => {
             const status = response.body;
 
             assert.property(status, 'status');
@@ -175,8 +171,7 @@ describe('server health', () => {
         });
 
         it('returns only one selected property when filtering by one value', () => {
-          return getHealth('filter=status')
-          .then((response) => {
+          return getHealth('filter=status').then(response => {
             const status = response.body;
 
             assert.lengthOf(Object.keys(status), 1);
@@ -185,8 +180,7 @@ describe('server health', () => {
         });
 
         it('returns all selected properties when filtering by multiple values', () => {
-          return getHealth('filter=status,env.nodeEnv')
-          .then((response) => {
+          return getHealth('filter=status,env.nodeEnv').then(response => {
             const status = response.body;
 
             assert.lengthOf(Object.keys(status), 2);
@@ -196,65 +190,48 @@ describe('server health', () => {
         });
 
         it('returns a 400 error when filtering by an unknown property', () => {
-          return getHealth('filter=foo')
-          .then((response) => {
+          return getHealth('filter=foo').then(response => {
             assert.equal(response.statusCode, 400);
-            assert.equal(response.body.message, 'Invalid filter path "foo"')
+            assert.equal(response.body.message, 'Invalid filter path "foo"');
           });
         });
-
       });
 
       describe('unhealthy server', () => {
-
         before(function addUnhealthyCheck() {
-          serverHealth.addConnectionCheck(
-            'failingConnectionTest',
-            sinon.stub().returns(false)
-          );
+          serverHealth.addConnectionCheck('failingConnectionTest', sinon.stub().returns(false));
         });
 
         it('returns a 500 if any connection check fails', () => {
-          return getHealth()
-          .then((response) => {
+          return getHealth().then(response => {
             assert.equal(response.statusCode, 500);
           });
         });
 
         it('returns a status=fail listing the failing connections', () => {
-          return getHealth()
-          .then((response) => {
+          return getHealth().then(response => {
             assert.equal(response.body.status, 'fail:failingConnectionTest');
           });
         });
-
       });
 
       describe('invalid health check response', () => {
-
         before(function addUnhealthyCheck() {
-          serverHealth.addConnectionCheck(
-            'invalidHealthCheck',
-            sinon.stub().returns('invalid response')
-          );
+          serverHealth.addConnectionCheck('invalidHealthCheck', sinon.stub().returns('invalid response'));
         });
 
         it('returns a 500 if any connection check returns a non-boolean', () => {
-          return getHealth()
-          .then((response) => {
+          return getHealth().then(response => {
             assert.equal(response.statusCode, 500);
           });
         });
 
         it('reports the invalid connection check', () => {
-          return getHealth()
-          .then((response) => {
+          return getHealth().then(response => {
             assert.include(response.body.message, 'invalidHealthCheck');
           });
         });
-
       });
     });
   }
-
 });
