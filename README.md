@@ -1,7 +1,7 @@
 # Server Health
 
-Allows to easily add a `/health` endpoint to a Restify, Express or native node http server 
-returning vital information about a service.
+Allows to easily add a `/health` endpoint to a Restify, Express, Hapi 
+or native node http server returning vital information about a service.
 
 ## Example output
 

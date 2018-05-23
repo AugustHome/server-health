@@ -105,8 +105,7 @@ describe('server health', () => {
       start(done) {
         const options = { endpoint: '/health' };
         this._server = serverHealth.createNodeHttpHealthCheckServer(options);
-        this._server.listen(8080);
-        done();
+        this._server.listen(8080, done);
       },
       stop(done) {
         this._server.close(done);
