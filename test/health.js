@@ -240,7 +240,10 @@ describe('server health', () => {
 
         it('reports the invalid connection check', () => {
           return getHealth().then(response => {
-            assert.include(response.body.message, 'invalidHealthCheck');
+            assert.deepEqual(response.body, {
+              code: 'Internal',
+              message: 'connection check for invalidHealthCheck must return boolean, got string',
+            });
           });
         });
       });
