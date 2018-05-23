@@ -99,6 +99,18 @@ describe('server health', () => {
         this._server.stop(done);
       },
     },
+    {
+      _server: null,
+      name: 'node-http',
+      start(done) {
+        const options = { endpoint: '/health' };
+        this._server = serverHealth.createNodeHttpHealthCheckServer(options);
+        this._server.listen(8080, done);
+      },
+      stop(done) {
+        this._server.close(done);
+      },
+    },
   ];
 
   for (const server of servers) {
@@ -228,7 +240,10 @@ describe('server health', () => {
 
         it('reports the invalid connection check', () => {
           return getHealth().then(response => {
-            assert.include(response.body.message, 'invalidHealthCheck');
+            assert.deepEqual(response.body, {
+              code: 'Internal',
+              message: 'connection check for invalidHealthCheck must return boolean, got string',
+            });
           });
         });
       });
