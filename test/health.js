@@ -204,7 +204,10 @@ describe('server health', () => {
         it('returns a 400 error when filtering by an unknown property', () => {
           return getHealth('filter=foo').then(response => {
             assert.equal(response.statusCode, 400);
-            assert.equal(response.body.message, 'Invalid filter path "foo"');
+            assert.deepEqual(response.body, {
+              code: 'BadRequest',
+              message: 'Invalid filter path "foo"',
+            });
           });
         });
       });
