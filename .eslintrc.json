@@ -1,7 +1,11 @@
 {
   "extends": [
     "eslint:recommended",
-    "prettier"
+    "prettier",
+    "plugin:security/recommended"
+  ],
+  "plugins": [
+    "security"
   ],
   "parserOptions": {
     "ecmaVersion": 2016,
@@ -29,8 +33,7 @@
     }],
     "yoda": [1, "never"],
     "no-else-return": 2,
-    "no-var": 2,
-    "prefer-arrow-callback": [2, { "allowNamedFunctions": true }],
-    "prefer-const": [2, { "destructuring": "all" }],
+    "curly": 2,
+    "padding-line-between-statements": [2, { "blankLine": "always", "prev": "*", "next": "return" }]
   }
 }
