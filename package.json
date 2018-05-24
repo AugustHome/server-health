@@ -1,6 +1,6 @@
 {
   "name": "august-server-health",
-  "version": "2.2.0",
+  "version": "2.2.2",
   "description": "Library to provide server health information via a HTTP server endpoint",
   "keywords": [
     "server",
