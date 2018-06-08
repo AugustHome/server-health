@@ -1,7 +1,0 @@
-{
-  "*.js": [
-    "./node_modules/.bin/eslint --fix",
-    "./node_modules/.bin/prettier --single-quote --trailing-comma es5 --write",
-    "git add"
-  ]
-}

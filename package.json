@@ -49,7 +49,6 @@
     "eslint-plugin-security": "^1.4.0",
     "hapi": "^16.6.3",
     "husky": "^1.0.0-rc.6",
-    "lint-staged": "^7.1.3",
     "mocha": "^5.2.0",
     "mocha-multi": "^1.0.1",
     "nyc": "^12.0.2",
