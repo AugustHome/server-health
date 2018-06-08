@@ -11,4 +11,6 @@ set -e
 cd "$(dirname "$0")/.."
 APP_ROOT="$(pwd)"
 
+echo "===> Removing node_modules ..."
+rm -rf node_modules
 npm run bootstrap
