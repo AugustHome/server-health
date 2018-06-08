@@ -19,5 +19,4 @@ pipelines:
             caches:
               - node
             script:
-              - export TERM=dumb
               - ./scripts/cibuild.sh
