@@ -11,12 +11,12 @@ or native node http server returning vital information about a service.
   "uptime": 3714, // uptime in seconds
   "upSince": "2017-05-12T03:13:06.462Z",
   "service": { // package.json meta data
-    "name": "august-subscription-server",
-    "description": "August Subscription Server",
+    "name": "foobarbaz-server",
+    "description": "Foo Bar Baz Server",
     "version": "0.14.0",
     "repository": {
       "type": "git",
-      "url": "git@bitbucket.org:august_team/august-subscription-server.git"
+      "url": "git@example.com:foobarbaz-server.git"
     }
   },
   "connections": { // plugable connection checks
@@ -29,7 +29,7 @@ or native node http server returning vital information about a service.
     "nodeVersion": "v0.10.37",
     "processName": "foobarbazd",
     "pid": 10329,
-    "cwd": "/Users/example/august/foobarbaz-server"
+    "cwd": "/Users/example/foobarbaz-server"
   },
   "git": {
     "commitHash": "c5d7c311ac8b5de7e309e18b821225d471c2cf1d",
@@ -47,7 +47,7 @@ See example/server.js for a complete example.
 
 ```js
 const restify = require('restify');
-const serverHealth = require('august-server-health');
+const serverHealth = require('server-health');
 
 serverHealth.addConnectionCheck('database', function () {
   // determine whether database connection is up and functional
@@ -70,7 +70,7 @@ server.listen(8080, function() {
 
 ### Querying from the command line
 
-After adding the server info health endpoint to a service you can do quick check
+After adding the server info health endpoint to a service you can do a quick check
 on its status using `curl` and `jq`:  
 
 ```
@@ -91,17 +91,19 @@ Multiple properties can be queried by separating them by comma: `filter=status,e
 ```
 
 ### Standalone Node Http Health Check Server
+
 For services that do not have an existing Restify, Express, or Hapi Server, you can create a
-native Node Http Server that only has one route, that also provides the same health
-checks as Restify, Express, and Hapi Servers.
+native Node HTTP Server that only has one route, that also provides the same health
+checks as Restify, Express, and Hapi servers.  
+
 ```javascript
-const serverHealth = require('august-server-health');
+const serverHealth = require('server-health');
 serverHealth.addConnectionCheck('database', function () {
   // determine whether database connection is up and functional
   return true;
 });
 const options = {
-  endpoint: '/health',  //optional and will default to `/health`
+  endpoint: '/health',  // optional and will default to `/health`
 };
 const nodeServer = serverHealth.createNodeHttpHealthCheckServer();
 nodeServer.listen(8080);

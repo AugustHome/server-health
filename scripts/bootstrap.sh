@@ -14,6 +14,9 @@ APP_ROOT="$(pwd)"
 if [ -f ".nvmrc" ]; then
   HAS_NVM=false
 
+  # if started through `npm run` we need to unset this to use nvm
+  unset npm_config_prefix
+
   if [ -f "$HOME/.nvm/nvm.sh" ]; then
     . "$HOME/.nvm/nvm.sh"
     HAS_NVM=true
@@ -28,5 +31,8 @@ if [ -f ".nvmrc" ]; then
   fi
 fi
 
+echo ""
 echo "===> Installing Dependencies ..."
-rm -rf node_modules && npm i
+echo ""
+npm install
+echo ""

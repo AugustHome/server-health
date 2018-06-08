@@ -44,7 +44,7 @@ MOCHA_OPTS="--exit \
  --reporter=list"
 
 if [ ${CI} ]; then
-  # Running in Bitbucket Pipelines
+  # Running in CI
   MOCHA_OPTS="${MOCHA_OPTS} \
     --forbid-only \
     --reporter=mocha-multi \

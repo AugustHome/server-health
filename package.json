@@ -1,9 +1,11 @@
 {
-  "name": "august-server-health",
+  "name": "server-health",
   "version": "2.2.2",
   "description": "Library to provide server health information via a HTTP server endpoint",
   "keywords": [
     "server",
+    "node",
+    "http",
     "status",
     "uptime",
     "rest",
@@ -11,16 +13,18 @@
     "ping",
     "health",
     "restify",
-    "express"
+    "express",
+    "hapi"
   ],
   "main": "index.js",
   "scripts": {
-    "test": "scripts/test.sh",
-    "lint": "./node_modules/.bin/eslint --ext .js lib test example",
     "bootstrap": "scripts/bootstrap.sh",
     "setup": "scripts/setup.sh",
     "update": "scripts/update.sh",
+    "test": "scripts/test.sh",
     "test:coverage": "scripts/test.sh -c",
+    "lint": "./node_modules/.bin/eslint --color --ext .js lib test example",
+    "lint:test": "npm run lint && npm run test",
     "example": "node example/server.js"
   },
   "author": {
@@ -28,35 +32,29 @@
     "email": "ingo@august.com"
   },
   "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://bitbucket.org/august_team/august-server-health.git"
-  },
   "engines": {
     "node": ">=6.11.1"
   },
   "dependencies": {
     "bluebird": "^3.5.1",
     "boom": "^7.2.0",
-    "git-repo-info": "^1.4.1",
+    "git-repo-info": "^2.0.0",
     "lodash": "^4.17.10",
-    "restify-errors": "^5.0.0"
+    "restify-errors": "^6.1.0"
   },
   "devDependencies": {
-    "august-dot-files": "git+ssh://git@bitbucket.org/august_team/august-dot-files.git#v2.4.3",
     "chai": "^4.1.2",
     "eslint": "^4.8.0",
     "eslint-config-prettier": "^2.6.0",
     "eslint-plugin-security": "^1.4.0",
     "hapi": "^16.6.3",
     "husky": "^1.0.0-rc.6",
-    "lint-staged": "^4.2.3",
     "mocha": "^5.2.0",
     "mocha-multi": "^1.0.1",
-    "nyc": "^10.3.2",
+    "nyc": "^12.0.2",
     "prettier": "^1.7.4",
-    "restify": "^6.0.1",
-    "sinon": "^4.0.1"
+    "restify": "^6.4.0",
+    "sinon": "^5.1.0"
   },
   "husky": {
     "hooks": {
