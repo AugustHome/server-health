@@ -1,0 +1,15 @@
+language: node_js
+
+node_js:
+  - "6"
+  - "8"
+
+# skip installation step - handled by cibuild script
+install: true
+
+script:
+  - scripts/cibuild.sh
+
+cache:
+  directories:
+    - "node_modules"
