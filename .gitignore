@@ -57,5 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
-# westorm files
+# webstorm files
 .idea
