@@ -1,7 +1,6 @@
 'use strict';
 
 const restify = require('restify');
-const Promise = require('bluebird');
 
 const serverHealth = require('../index');
 
