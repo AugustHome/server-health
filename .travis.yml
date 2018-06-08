@@ -6,6 +6,9 @@ git:
 # skip installation step - handled by cibuild script
 install: true
 
+# TODO run Node Security Scanner
+# before_script:
+
 script:
   - scripts/cibuild.sh
 
