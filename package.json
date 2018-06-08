@@ -40,7 +40,6 @@
     "restify-errors": "^5.0.0"
   },
   "devDependencies": {
-    "august-dot-files": "git+ssh://git@bitbucket.org/august_team/august-dot-files.git#v2.4.3",
     "chai": "^4.1.2",
     "eslint": "^4.8.0",
     "eslint-config-prettier": "^2.6.0",
