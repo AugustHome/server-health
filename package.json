@@ -4,6 +4,8 @@
   "description": "Library to provide server health information via a HTTP server endpoint",
   "keywords": [
     "server",
+    "node",
+    "http",
     "status",
     "uptime",
     "rest",
@@ -11,7 +13,8 @@
     "ping",
     "health",
     "restify",
-    "express"
+    "express",
+    "hapi"
   ],
   "main": "index.js",
   "scripts": {
