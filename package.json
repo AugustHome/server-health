@@ -29,10 +29,6 @@
     "email": "ingo@august.com"
   },
   "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://bitbucket.org/august_team/august-server-health.git"
-  },
   "engines": {
     "node": ">=6.11.1"
   },
