@@ -1,5 +1,7 @@
 # Server Health
 
+[![Build Status](https://travis-ci.org/AugustHome/server-health.svg?branch=master)](https://travis-ci.org/AugustHome/server-health)
+
 Allows to easily add a `/health` endpoint to a Restify, Express, Hapi 
 or native node http server returning vital information about a service.
 
