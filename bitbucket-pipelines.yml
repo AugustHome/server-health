@@ -3,19 +3,21 @@ clone:
   depth: 1
 pipelines:
   default:
-    - step:
-        name: Node Security Scanner
-        image:
-          name: augusthome/nodescanner
-          # Make sure this matches the user "scanner" with `id -u scanner`
-          run-as-user: 1001
-        script:
-          - ~/scan_node.sh
-    - step:
-        name: Tests
-        max-time: 15
-        caches:
-          - node
-        script:
-          - export TERM=dumb
-          - ./scripts/cibuild.sh
+    - parallel:
+        - step:
+            name: Node Security Scanner
+            image:
+              name: augusthome/nodescanner
+              # Make sure this matches the user "scanner" with `id -u scanner`
+              run-as-user: 1001
+            script:
+              - ~/scan_node.sh
+
+        - step:
+            name: Tests
+            max-time: 15
+            caches:
+              - node
+            script:
+              - export TERM=dumb
+              - ./scripts/cibuild.sh
