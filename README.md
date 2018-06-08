@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/AugustHome/server-health.svg?branch=master)](https://travis-ci.org/AugustHome/server-health)
 
+[![NPM](https://nodei.co/npm/server-health.png?downloads=true)](https://nodei.co/npm/server-health/)
+
 Allows to easily add a `/health` endpoint to a Restify, Express, Hapi 
 or native node http server returning vital information about a service.
 
