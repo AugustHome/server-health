@@ -103,7 +103,7 @@ serverHealth.addConnectionCheck('database', function () {
   return true;
 });
 const options = {
-  endpoint: '/health',  //optional and will default to `/health`
+  endpoint: '/health',  // optional and will default to `/health`
 };
 const nodeServer = serverHealth.createNodeHttpHealthCheckServer();
 nodeServer.listen(8080);
