@@ -77,7 +77,7 @@ server.listen(8080, function() {
 After adding the server info health endpoint to a service you can do a quick check
 on its status using `curl` and `jq`:  
 
-```
+```bash
 > curl -s http://localhost:8080/health | jq '.status'
 "ok"
 ```
@@ -89,7 +89,7 @@ filtering server side by specifying a "filter" query string parameter.
 
 Multiple properties can be queried by separating them by comma: `filter=status,env.nodeEnv`  
 
-```
+```bash
 > curl -s http://localhost:8080/health?status
 {"status":"ok"}
 ```
@@ -111,5 +111,4 @@ const options = {
 };
 const nodeServer = serverHealth.createNodeHttpHealthCheckServer(options);
 nodeServer.listen(8080);
-
 ```
