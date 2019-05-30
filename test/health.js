@@ -5,6 +5,7 @@ const assert = require('chai').assert;
 const sinon = require('sinon');
 const restify = require('restify');
 const hapi = require('hapi');
+const express = require('express');
 const http = require('http');
 
 const serverHealth = require('../lib/health');
@@ -40,11 +41,13 @@ describe('server health', () => {
             response.on('end', () => {
               try {
                 response.body = JSON.parse(rawData);
-
-                return resolve(response);
               } catch (err) {
-                reject(err);
+                // ignore JSON parse errors, usually express returning a HTML error page
+                // eslint-disable-next-line no-console
+                console.error('JSON parse error', err);
               }
+
+              return resolve(response);
             });
           }
         )
@@ -60,6 +63,15 @@ describe('server health', () => {
       serverHealth.exposeHealthEndpoint(server);
 
       assert.property(server.routes, 'gethealth');
+    });
+
+    it('adds a health endpoint with express', () => {
+      const app = express();
+      serverHealth.exposeHealthEndpoint(app, '/health', 'express');
+
+      const routes = app._router.stack.filter(layer => !!layer.route).map(layer => layer.route.path);
+
+      assert.include(routes, '/health');
     });
 
     it('adds a health endpoint with hapi', () => {
@@ -81,6 +93,23 @@ describe('server health', () => {
         this._server.use(restify.plugins.queryParser());
         serverHealth.exposeHealthEndpoint(this._server);
         this._server.listen(8080, done);
+      },
+      stop(done) {
+        this._server.close(done);
+      },
+    },
+    {
+      _server: null,
+      name: 'express',
+      start(done) {
+        // NOTE restify "pollutes" the Node-native request object with its own query parser by just loading restify
+        //      undoing this so that express can pollute it with its own query parser^^
+        delete http.IncomingMessage.prototype.query;
+        delete http.IncomingMessage.prototype.getQuery;
+
+        const app = express();
+        serverHealth.exposeHealthEndpoint(app, '/health', 'express');
+        this._server = app.listen(8080, done);
       },
       stop(done) {
         this._server.close(done);
