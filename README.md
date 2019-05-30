@@ -47,7 +47,7 @@ or native node http server returning vital information about a service.
 
 ### Adding the /health endpoint to a restify server 
 
-See example/server.js for a complete example.
+See example/server.js for a complete example. Also check the tests for how to use this with hapi and express.
 
 ```js
 const restify = require('restify');
