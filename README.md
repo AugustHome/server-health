@@ -90,7 +90,7 @@ filtering server side by specifying a "filter" query string parameter.
 Multiple properties can be queried by separating them by comma: `filter=status,env.nodeEnv`  
 
 ```bash
-> curl -s http://localhost:8080/health?status
+> curl -s http://localhost:8080/health?filter=status
 {"status":"ok"}
 ```
 
