@@ -30,7 +30,7 @@ echo "✔︎ Running eslint fixes"
 echo "$jsfiles" | xargs eslint \
   --no-eslintrc \
   --env es6,node,mocha \
-  --parser-options=ecmaVersion:2016 \
+  --parser-options=ecmaVersion:2018 \
   --rule 'space-before-function-paren: [2, { "anonymous": "always", "named": "never", "asyncArrow": "always" }]' \
   --fix
 [ $? != 0 ] && exit 1
