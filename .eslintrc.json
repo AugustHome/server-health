@@ -8,7 +8,7 @@
     "security"
   ],
   "parserOptions": {
-    "ecmaVersion": 2016,
+    "ecmaVersion": 2018,
     "ecmaFeatures": {
       "globalReturn": true,
       "impliedStrict": true

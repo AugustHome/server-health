@@ -4,7 +4,7 @@ const Promise = require('bluebird');
 const assert = require('chai').assert;
 const sinon = require('sinon');
 const restify = require('restify');
-const hapi = require('hapi');
+const hapi = require('@hapi/hapi');
 const express = require('express');
 const http = require('http');
 
@@ -75,11 +75,10 @@ describe('server health', () => {
     });
 
     it('adds a health endpoint with hapi', () => {
-      const server = new hapi.Server();
-      server.connection({ port: 8080, host: 'localhost' });
+      const server = new hapi.Server({ port: 8080, host: 'localhost' });
       serverHealth.exposeHealthEndpoint(server, '/health', 'hapi');
 
-      const hasHealthRoute = server.table()[0].table.some(({ path }) => path === '/health');
+      const hasHealthRoute = server.table()[0].path === '/health';
       assert.isTrue(hasHealthRoute);
     });
   });
@@ -118,14 +117,15 @@ describe('server health', () => {
     {
       _server: null,
       name: 'hapi',
-      start(done) {
-        this._server = new hapi.Server();
-        this._server.connection({ port: 8080, host: 'localhost' });
+      async start(done) {
+        this._server = hapi.Server({ port: 8080, host: 'localhost' });
         serverHealth.exposeHealthEndpoint(this._server, '/health', 'hapi');
-        this._server.start(done);
+        await this._server.start();
+        done();
       },
-      stop(done) {
-        this._server.stop(done);
+      async stop(done) {
+        await this._server.stop();
+        done();
       },
     },
     {
