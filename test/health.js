@@ -62,7 +62,7 @@ describe('server health', () => {
       const server = restify.createServer();
       serverHealth.exposeHealthEndpoint(server);
 
-      assert.property(server.routes, 'gethealth');
+      assert.property(server.router.getRoutes(), 'gethealth');
     });
 
     it('adds a health endpoint with express', () => {
