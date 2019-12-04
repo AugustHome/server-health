@@ -58,7 +58,7 @@
     "mocha-multi": "^1.0.1",
     "nyc": "^14.1.1",
     "prettier": "^1.7.4",
-    "restify": "^6.4.0",
+    "restify": "^8.5.0",
     "sinon": "^5.1.0"
   },
   "husky": {
