@@ -43,11 +43,11 @@
     "@hapi/boom": "^7.4.10",
     "bluebird": "^3.5.1",
     "git-repo-info": "^2.0.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.20",
     "restify-errors": "^6.1.0"
   },
   "devDependencies": {
-    "@hapi/hapi": "^19.1.1",
+    "@hapi/hapi": "^19.2.0",
     "chai": "^4.1.2",
     "eslint": "^4.8.0",
     "eslint-config-prettier": "^2.6.0",
@@ -58,7 +58,7 @@
     "mocha-multi": "^1.0.1",
     "nyc": "^14.1.1",
     "prettier": "^1.7.4",
-    "restify": "^8.5.0",
+    "restify": "^8.5.1",
     "sinon": "^5.1.0"
   },
   "husky": {
