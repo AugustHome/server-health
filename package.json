@@ -36,9 +36,6 @@
     "type": "git",
     "url": "https://github.com/AugustHome/server-health.git"
   },
-  "engines": {
-    "node": ">=6.11.1"
-  },
   "dependencies": {
     "@hapi/boom": "^9.1.2",
     "bluebird": "^3.5.1",
