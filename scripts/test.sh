@@ -46,9 +46,7 @@ MOCHA_OPTS="--exit \
 if [ ${CI} ]; then
   # Running in CI
   MOCHA_OPTS="${MOCHA_OPTS} \
-    --forbid-only \
-    --reporter=mocha-multi \
-    --reporter-options list=-,xunit=./test-results/mocha.xml"
+    --forbid-only"
 fi
 
 # what to test
