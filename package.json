@@ -47,15 +47,15 @@
   "devDependencies": {
     "@hapi/hapi": "^20.2.2",
     "chai": "^4.3.7",
-    "eslint": "^8.29.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-security": "^1.5.0",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-security": "^1.6.0",
     "express": "^4.18.2",
-    "husky": "^8.0.2",
-    "mocha": "^10.1.0",
+    "husky": "^8.0.3",
+    "mocha": "^10.2.0",
     "nyc": "^15.1.0",
-    "prettier": "^2.8.0",
+    "prettier": "^2.8.2",
     "restify": "^8.6.1",
-    "sinon": "^15.0.0"
+    "sinon": "^15.0.1"
   }
 }
