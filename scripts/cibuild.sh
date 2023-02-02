@@ -11,7 +11,11 @@ set -e
 cd "$(dirname "$0")/.."
 APP_ROOT="$(pwd)"
 
-./scripts/bootstrap.sh
+echo ""
+echo "===> Installing Dependencies ..."
+echo ""
+npm ci
+echo ""
 
 echo "===> Running Linter ..."
 npm run lint --silent 2>&1
