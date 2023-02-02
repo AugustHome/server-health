@@ -3,6 +3,10 @@ name: Tests and Code Coverage
 on: [push, pull_request]
 
 jobs:
+# TODO Run our Node Security Scanner
+#  security-scan:
+#    runs-on: ubuntu-latest
+#    steps:
   build:
     runs-on: ubuntu-latest
     strategy:
@@ -16,7 +20,6 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
-        # TODO Run our Node Security Scanner
       - name: Run tests and collect coverage
         run: ./scripts/cibuild.sh
       - name: Upload coverage reports to Codecov
