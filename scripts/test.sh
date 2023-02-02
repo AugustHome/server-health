@@ -37,16 +37,21 @@ done
 
 
 MOCHA="$PWD/node_modules/.bin/mocha"
+MOCHA_BIN=${MOCHA}
 MOCHA_OPTS="--exit \
  --timeout 10000 \
  --colors \
- --ui bdd \
- --reporter=list"
+ --ui bdd"
 
 if [ ${CI} ]; then
   # Running in CI
   MOCHA_OPTS="${MOCHA_OPTS} \
-    --forbid-only"
+    --forbid-only \
+    --reporter=mocha-multi \
+    --reporter-options list=-,xunit=./test-results/mocha.xml"
+else
+  MOCHA_OPTS="${MOCHA_OPTS} \
+    --reporter=list"
 fi
 
 # what to test
