@@ -37,16 +37,21 @@ done
 
 
 MOCHA="$PWD/node_modules/.bin/mocha"
+MOCHA_BIN=${MOCHA}
 MOCHA_OPTS="--exit \
  --timeout 10000 \
  --colors \
- --ui bdd \
- --reporter=list"
+ --ui bdd"
 
 if [ ${CI} ]; then
   # Running in CI
   MOCHA_OPTS="${MOCHA_OPTS} \
-    --forbid-only"
+    --forbid-only \
+    --reporter=mocha-multi \
+    --reporter-options list=-,xunit=./test-results/mocha.xml"
+else
+  MOCHA_OPTS="${MOCHA_OPTS} \
+    --reporter=list"
 fi
 
 # what to test
@@ -60,16 +65,17 @@ fi
 
 # create coverage report?
 if [ ${USE_COVERAGE} ]; then
-  MOCHA="$PWD/node_modules/.bin/nyc --reporter=html --reporter=text mocha"
+  MOCHA="$PWD/node_modules/.bin/nyc --reporter=html --reporter=text --reporter=lcov ${MOCHA_BIN}"
 fi
 
 # environment information
 echo "Node.js version: $(${NODE} --version)"
-echo "npm version: $(npm -v)"
-echo "Mocha version: $(${MOCHA} --version)"
 echo "NODE_ENV=${NODE_ENV}"
+echo "npm version: $(npm -v)"
+echo "Mocha version: $(${MOCHA_BIN} --version)"
+echo "MOCHA_OPTS=${MOCHA_OPTS}"
 echo ""
 
 # start tests
-echo "===> Running tests ..."
+echo "===> Running Tests ..."
 ${MOCHA} ${MOCHA_OPTS}
