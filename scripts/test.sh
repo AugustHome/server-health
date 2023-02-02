@@ -60,13 +60,13 @@ fi
 
 # create coverage report?
 if [ ${USE_COVERAGE} ]; then
-  MOCHA="$PWD/node_modules/.bin/nyc --reporter=html --reporter=text mocha"
+  MOCHA="$PWD/node_modules/.bin/nyc --reporter=html --reporter=text --reporter=lcov ${MOCHA_BIN}"
 fi
 
 # environment information
 echo "Node.js version: $(${NODE} --version)"
 echo "npm version: $(npm -v)"
-echo "Mocha version: $(${MOCHA} --version)"
+echo "Mocha version: $(${MOCHA_BIN} --version)"
 echo "NODE_ENV=${NODE_ENV}"
 echo ""
 

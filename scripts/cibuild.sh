@@ -20,4 +20,5 @@ if [ "$?" -gt "0" ]; then
   exit 1
 fi
 
-./scripts/test.sh
+# run tests
+./scripts/test.sh -c

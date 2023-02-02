@@ -1,0 +1,24 @@
+name: Code Coverage
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 14, 16, 18 ]
+    name: Run Tests - Node ${{ matrix.node }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+        # TODO Run our Node Security Scanner
+      - name: Run tests and collect coverage
+        run: ./scripts/cibuild.sh
+      - name: Upload coverage reports to Codecov
+        # https://github.com/marketplace/actions/codecov
+        uses: codecov/codecov-action@v3
