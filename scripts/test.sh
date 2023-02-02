@@ -65,11 +65,12 @@ fi
 
 # environment information
 echo "Node.js version: $(${NODE} --version)"
+echo "NODE_ENV=${NODE_ENV}"
 echo "npm version: $(npm -v)"
 echo "Mocha version: $(${MOCHA_BIN} --version)"
-echo "NODE_ENV=${NODE_ENV}"
+echo "MOCHA_OPTS=${MOCHA_OPTS}"
 echo ""
 
 # start tests
-echo "===> Running tests ..."
+echo "===> Running Tests ..."
 ${MOCHA} ${MOCHA_OPTS}
