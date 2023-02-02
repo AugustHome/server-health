@@ -1,10 +1,8 @@
 # Server Health
 
-[![Build Status](https://travis-ci.org/AugustHome/server-health.svg?branch=master)](https://travis-ci.org/AugustHome/server-health)
-
 [![NPM](https://nodei.co/npm/server-health.png?downloads=true)](https://nodei.co/npm/server-health/)
 
-Allows to easily add a `/health` endpoint to a Restify, Express, Hapi 
+Allows to easily add a `/health` endpoint to a Restify, Express, Hapi
 or native node http server returning vital information about a service.
 
 ## Example output
@@ -45,7 +43,7 @@ or native node http server returning vital information about a service.
 
 ## Usage
 
-### Adding the /health endpoint to a restify server 
+### Adding the /health endpoint to a restify server
 
 See example/server.js for a complete example. Also check the tests for how to use this with hapi and express.
 
@@ -75,7 +73,7 @@ server.listen(8080, function() {
 ### Querying from the command line
 
 After adding the server info health endpoint to a service you can do a quick check
-on its status using `curl` and `jq`:  
+on its status using `curl` and `jq`:
 
 ```bash
 > curl -s http://localhost:8080/health | jq '.status'
@@ -85,9 +83,9 @@ on its status using `curl` and `jq`:
 ### Filtering the response directly
 
 Instead of filtering the whole response on the client the library also supports
-filtering server side by specifying a "filter" query string parameter.  
+filtering server side by specifying a "filter" query string parameter.
 
-Multiple properties can be queried by separating them by comma: `filter=status,env.nodeEnv`  
+Multiple properties can be queried by separating them by comma: `filter=status,env.nodeEnv`
 
 ```bash
 > curl -s http://localhost:8080/health?filter=status
@@ -98,7 +96,7 @@ Multiple properties can be queried by separating them by comma: `filter=status,e
 
 For services that do not have an existing Restify, Express, or Hapi Server, you can create a
 native Node HTTP Server that only has one route, that also provides the same health
-checks as Restify, Express, and Hapi servers.  
+checks as Restify, Express, and Hapi servers.
 
 ```javascript
 const serverHealth = require('server-health');
