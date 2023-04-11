@@ -13,6 +13,7 @@
     "ping",
     "health",
     "restify",
+    "fastify",
     "express",
     "hapi"
   ],
@@ -51,6 +52,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-security": "^1.7.1",
     "express": "^4.18.2",
+    "fastify": "^4.15.0",
     "husky": "^8.0.3",
     "mocha": "^10.2.0",
     "mocha-multi": "^1.1.7",

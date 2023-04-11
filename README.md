@@ -2,7 +2,7 @@
 
 [![NPM](https://nodei.co/npm/server-health.png?downloads=true)](https://nodei.co/npm/server-health/)
 
-Allows to easily add a `/health` endpoint to a Restify, Express, Hapi
+Allows to easily add a `/health` endpoint to a Fastify, Restify, Express, Hapi
 or native node http server returning vital information about a service.
 
 ## Example output
@@ -66,6 +66,18 @@ serverHealth.addConnectionCheck('redis', function () {
 const server = restify.createServer();
 serverHealth.exposeHealthEndpoint(server);
 server.listen(8080, function() {
+  console.log('Listening on port 8080');
+});
+```
+
+For frameworks other than restify (default) specify the used framework:
+
+```js
+const fastify = require('fastify');
+
+const server = fastify();
+serverHealth.exposeHealthEndpoint(server, '/health', 'fastify');
+server.listen({port: 8080}, function() {
   console.log('Listening on port 8080');
 });
 ```

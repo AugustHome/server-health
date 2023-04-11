@@ -1,8 +1,10 @@
 'use strict';
 
-const Promise = require('bluebird');
-const assert = require('chai').assert;
+const {Promise} = require('bluebird');
+const {assert} = require('chai');
 const sinon = require('sinon');
+
+const fastify = require('fastify');
 const restify = require('restify');
 const hapi = require('@hapi/hapi');
 const express = require('express');
@@ -84,6 +86,18 @@ describe('server health', () => {
   });
 
   const servers = [
+    {
+      _server: null,
+      name: 'fastify',
+      start(done) {
+        this._server = fastify();
+        serverHealth.exposeHealthEndpoint(this._server, '/health', 'fastify');
+        this._server.listen({port: 8080}, done);
+      },
+      stop(done) {
+        this._server.close(done);
+      },
+    },
     {
       _server: null,
       name: 'restify',
