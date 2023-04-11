@@ -16,14 +16,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ 14, 16, 18 ]
-    name: Run Tests - Node ${{ matrix.node }}
+        nodeVersion: [ 14, 16, 18 ]
+    name: Run Tests - Node ${{ matrix.nodeVersion }}
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: ${{ matrix.nodeVersion }}
           cache: 'npm'
       - name: Run tests and collect coverage
         run: ./scripts/cibuild.sh
