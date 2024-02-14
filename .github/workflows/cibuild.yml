@@ -24,7 +24,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.nodeVersion }}
-          cache: 'npm'
       - name: Run tests and collect coverage
         run: ./scripts/cibuild.sh
       - name: Upload coverage reports to Codecov
