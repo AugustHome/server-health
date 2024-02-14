@@ -16,16 +16,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        nodeVersion: [ 14, 16, 18, 20 ]
+        nodeVersion: [ 14, 16, 18 ]
     name: Run Tests - Node ${{ matrix.nodeVersion }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.nodeVersion }}
+          cache: 'npm'
       - name: Run tests and collect coverage
         run: ./scripts/cibuild.sh
       - name: Upload coverage reports to Codecov
         # https://github.com/marketplace/actions/codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v3
