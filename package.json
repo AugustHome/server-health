@@ -1,6 +1,6 @@
 {
   "name": "server-health",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "Library to provide server health information via a HTTP server endpoint for express, restify, hapi, and vanilla http",
   "keywords": [
     "server",
