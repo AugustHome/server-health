@@ -24,7 +24,7 @@
     "update": "scripts/update.sh",
     "test": "scripts/test.sh",
     "test:coverage": "scripts/test.sh -c",
-    "lint": "./node_modules/.bin/eslint --color --ext .js lib test example",
+    "lint": "eslint --color --ext .js lib test example",
     "lint:test": "npm run lint && npm run test",
     "example": "node example/server.js",
     "prepare": "husky"
@@ -36,7 +36,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AugustHome/server-health.git"
+    "url": "git+ssh://git@github.com/AugustHome/server-health.git"
   },
   "dependencies": {
     "@hapi/boom": "^10.0.1",
