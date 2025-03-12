@@ -1,5 +1,10 @@
 # Changelog
 
+# 6.0.0
+
+  * requires Node.js v18+ / development happens on Node v22
+  * update dependencies
+
 # 5.2.0
 
   * Add support for Fastify
