@@ -1,8 +1,7 @@
 'use strict';
 
-const {Promise} = require('bluebird');
-const {assert} = require('chai');
 const sinon = require('sinon');
+let assert;
 
 const fastify = require('fastify');
 const restify = require('restify');
@@ -13,6 +12,13 @@ const http = require('http');
 const serverHealth = require('../lib/health');
 
 describe('server health', () => {
+  // account for dynamic chai import until we migrate to ESM import/from
+  // Load chai before any tests run
+  before(async function () {
+    const chai = await import('chai');
+    assert = chai.assert;
+  });
+
   /**
    * Helper function to run requests against the health endpoint
    *
@@ -33,11 +39,11 @@ describe('server health', () => {
             port: 8080,
             path: path,
           },
-          response => {
+          (response) => {
             let rawData = '';
 
             response.setEncoding('utf8');
-            response.on('data', chunk => {
+            response.on('data', (chunk) => {
               rawData += chunk;
             });
             response.on('end', () => {
@@ -45,7 +51,7 @@ describe('server health', () => {
                 response.body = JSON.parse(rawData);
               } catch (err) {
                 // ignore JSON parse errors, usually express returning a HTML error page
-                // eslint-disable-next-line no-console
+
                 console.error('JSON parse error', err);
               }
 
@@ -53,7 +59,7 @@ describe('server health', () => {
             });
           }
         )
-        .on('error', err => {
+        .on('error', (err) => {
           reject(err);
         });
     });
@@ -71,7 +77,7 @@ describe('server health', () => {
       const app = express();
       serverHealth.exposeHealthEndpoint(app, '/health', 'express');
 
-      const routes = app._router.stack.filter(layer => !!layer.route).map(layer => layer.route.path);
+      const routes = app._router.stack.filter((layer) => !!layer.route).map((layer) => layer.route.path);
 
       assert.include(routes, '/health');
     });
@@ -92,7 +98,7 @@ describe('server health', () => {
       start(done) {
         this._server = fastify();
         serverHealth.exposeHealthEndpoint(this._server, '/health', 'fastify');
-        this._server.listen({port: 8080}, done);
+        this._server.listen({ port: 8080 }, done);
       },
       stop(done) {
         this._server.close(done);
@@ -186,20 +192,20 @@ describe('server health', () => {
       });
 
       it('returns a 200 if all connection checks succeed', () => {
-        return getHealth().then(response => {
+        return getHealth().then((response) => {
           assert.equal(response.statusCode, 200);
         });
       });
 
       it('returns a status=ok if all connection checks succeed', () => {
-        return getHealth().then(response => {
+        return getHealth().then((response) => {
           assert.equal(response.body.status, 'ok');
         });
       });
 
       describe('Property filtering', () => {
         it('returns all core properties when not filtered', () => {
-          return getHealth().then(response => {
+          return getHealth().then((response) => {
             const status = response.body;
 
             assert.property(status, 'status');
@@ -226,7 +232,7 @@ describe('server health', () => {
         });
 
         it('returns only one selected property when filtering by one value', () => {
-          return getHealth('filter=status').then(response => {
+          return getHealth('filter=status').then((response) => {
             const status = response.body;
 
             assert.lengthOf(Object.keys(status), 1);
@@ -235,7 +241,7 @@ describe('server health', () => {
         });
 
         it('returns all selected properties when filtering by multiple values', () => {
-          return getHealth('filter=status,env.nodeEnv').then(response => {
+          return getHealth('filter=status,env.nodeEnv').then((response) => {
             const status = response.body;
 
             assert.lengthOf(Object.keys(status), 2);
@@ -245,7 +251,7 @@ describe('server health', () => {
         });
 
         it('returns a 400 error when filtering by an unknown property', () => {
-          return getHealth('filter=foo').then(response => {
+          return getHealth('filter=foo').then((response) => {
             assert.equal(response.statusCode, 400);
             assert.deepEqual(response.body, {
               code: 'BadRequest',
@@ -261,13 +267,13 @@ describe('server health', () => {
         });
 
         it('returns a 500 if any connection check fails', () => {
-          return getHealth().then(response => {
+          return getHealth().then((response) => {
             assert.equal(response.statusCode, 500);
           });
         });
 
         it('returns a status=fail listing the failing connections', () => {
-          return getHealth().then(response => {
+          return getHealth().then((response) => {
             assert.equal(response.body.status, 'fail:failingConnectionTest');
           });
         });
@@ -279,13 +285,13 @@ describe('server health', () => {
         });
 
         it('returns a 500 if any connection check returns a non-boolean', () => {
-          return getHealth().then(response => {
+          return getHealth().then((response) => {
             assert.equal(response.statusCode, 500);
           });
         });
 
         it('reports the invalid connection check', () => {
-          return getHealth().then(response => {
+          return getHealth().then((response) => {
             assert.deepEqual(response.body, {
               code: 'Internal',
               message: 'connection check for invalidHealthCheck must return boolean, got string',

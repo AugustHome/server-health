@@ -7,7 +7,7 @@ const serverHealth = require('../index');
 /**
  * Initializes any connections and libraries
  *
- * @return {Promise} Resolves after initialization
+ * @returns {Promise} Resolves after initialization
  */
 function init() {
   return Promise.all([
@@ -33,7 +33,7 @@ function init() {
     });
     serverHealth.addConnectionCheck('goodAsyncCheck', () => {
       // async check returning up/functional connection
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         setTimeout(() => {
           resolve(true);
         }, Math.random() * 1000);
@@ -67,9 +67,8 @@ function startServer() {
     next();
   });
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     server.listen(8080, () => {
-      // eslint-disable-next-line no-console
       console.log('Listening on port 8080');
       resolve();
     });
