@@ -1,6 +1,5 @@
 'use strict';
 
-const { Promise } = require('bluebird');
 const sinon = require('sinon');
 let assert;
 (async () => {

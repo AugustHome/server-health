@@ -6,7 +6,6 @@
 clear
 
 export NODE_ENV=test
-export BLUEBIRD_DEBUG=1
 set -e
 [ -z "$DEBUG" ] || set -x
 

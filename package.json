@@ -40,7 +40,6 @@
   },
   "dependencies": {
     "@hapi/boom": "^10.0.1",
-    "bluebird": "^3.7.2",
     "git-repo-info": "^2.1.1",
     "lodash": "^4.17.21",
     "restify-errors": "^8.0.2"
