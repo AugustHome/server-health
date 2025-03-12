@@ -64,7 +64,7 @@ fi
 
 # create coverage report?
 if [ ${USE_COVERAGE} ]; then
-  MOCHA="$PWD/node_modules/.bin/nyc --reporter=html --reporter=text --reporter=lcov ${MOCHA_BIN}"
+  MOCHA="$PWD/node_modules/.bin/nyc --reporter=html --reporter=text --reporter=text-summary --reporter=lcov ${MOCHA_BIN}"
 fi
 
 # environment information
