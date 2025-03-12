@@ -2,10 +2,6 @@
 
 const sinon = require('sinon');
 let assert;
-(async () => {
-  const chai = await import('chai');
-  assert = chai.assert;
-})();
 
 const fastify = require('fastify');
 const restify = require('restify');
@@ -16,8 +12,12 @@ const http = require('http');
 const serverHealth = require('../lib/health');
 
 describe('server health', () => {
-  // account for dynamic chai import
-  before((done) => setTimeout(done, 5));
+  // account for dynamic chai import until we migrate to ESM import/from
+  // Load chai before any tests run
+  before(async function () {
+    const chai = await import('chai');
+    assert = chai.assert;
+  });
 
   /**
    * Helper function to run requests against the health endpoint
