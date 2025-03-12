@@ -1,8 +1,12 @@
 'use strict';
 
 const { Promise } = require('bluebird');
-const { assert } = require('chai');
 const sinon = require('sinon');
+let assert;
+(async () => {
+  const chai = await import('chai');
+  assert = chai.assert;
+})();
 
 const fastify = require('fastify');
 const restify = require('restify');
