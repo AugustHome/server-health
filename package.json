@@ -2,6 +2,7 @@
   "name": "server-health",
   "version": "6.0.2",
   "description": "Library to provide server health information via a HTTP server endpoint for express, restify, hapi, and vanilla http",
+  "type": "module",
   "keywords": [
     "server",
     "node",
@@ -54,7 +55,7 @@
     "express": "^4.21.2",
     "fastify": "^5.2.1",
     "husky": "^9.1.7",
-    "lint-staged": "^15.4.3",
+    "lint-staged": "^15.5.0",
     "mocha": "^11.1.0",
     "mocha-multi": "^1.1.7",
     "nyc": "^17.1.0",

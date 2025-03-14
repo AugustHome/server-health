@@ -1,8 +1,5 @@
-'use strict';
-
-const restify = require('restify');
-
-const serverHealth = require('../index');
+import restify from 'restify';
+import serverHealth from '../index.js';
 
 /**
  * Initializes any connections and libraries
