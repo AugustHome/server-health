@@ -8,10 +8,12 @@ on:
 
 
 jobs:
-# TODO Run our Node Security Scanner
-#  security-scan:
-#    runs-on: ubuntu-latest
-#    steps:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run npm audit
+        run: npm audit --production
   build:
     runs-on: ubuntu-latest
     strategy:
