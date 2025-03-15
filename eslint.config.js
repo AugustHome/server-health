@@ -1,13 +1,11 @@
-'use strict';
+import { defineConfig } from 'eslint/config';
+import pluginJs from '@eslint/js';
+import pluginSecurity from 'eslint-plugin-security';
+import pluginJsDoc from 'eslint-plugin-jsdoc';
+import prettierConfig from 'eslint-config-prettier';
+import globals from 'globals';
 
-const { defineConfig } = require('eslint/config');
-const pluginJs = require('@eslint/js');
-const pluginSecurity = require('eslint-plugin-security');
-const pluginJsDoc = require('eslint-plugin-jsdoc');
-const prettierConfig = require('eslint-config-prettier');
-const globals = require('globals');
-
-module.exports = defineConfig([
+export default defineConfig([
   {
     ignores: ['node_modules/*', '.nyc_output/**', 'coverage/**'],
   },
@@ -27,7 +25,7 @@ module.exports = defineConfig([
     languageOptions: {
       parserOptions: {
         ecmaVersion: 2022,
-        sourceType: 'script',
+        sourceType: 'module',
       },
       globals: {
         ...globals.node,
