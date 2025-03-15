@@ -17,6 +17,7 @@ lib-cov
 # Coverage directory used by tools like nyc
 coverage
 .nyc_output
+/test-results/
 
 # Codecov uploader and integrity signatures
 codecov
