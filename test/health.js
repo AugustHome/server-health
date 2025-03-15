@@ -127,15 +127,13 @@ describe('server health', () => {
     {
       _server: null,
       name: 'hapi',
-      async start(done) {
+      start(done) {
         this._server = hapi.Server({ port: 8080, host: 'localhost' });
         serverHealth.exposeHealthEndpoint(this._server, '/health', 'hapi');
-        await this._server.start();
-        done();
+        this._server.start().then(() => done());
       },
-      async stop(done) {
-        await this._server.stop();
-        done();
+      stop(done) {
+        this._server.stop().then(() => done());
       },
     },
     {
