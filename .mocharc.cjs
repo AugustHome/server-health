@@ -28,10 +28,10 @@ if (process.env.CI) {
   ciConfigOverride = {
     forbidOnly: true,
     reporter: 'mocha-multi',
-    reporterOptions: {
-      list: '-',
-      xunit: './test-results/mocha.xml',
-    },
+    reporterOptions: [
+      'list=-',
+      'xunit=./test-results/mocha.xml',
+    ],
   };
 }
 
