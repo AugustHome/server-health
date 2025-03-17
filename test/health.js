@@ -1,24 +1,14 @@
-'use strict';
+import sinon from 'sinon';
+import fastify from 'fastify';
+import restify from 'restify';
+import hapi from '@hapi/hapi';
+import express from 'express';
+import http from 'node:http';
+import { assert } from 'chai';
 
-const sinon = require('sinon');
-let assert;
-
-const fastify = require('fastify');
-const restify = require('restify');
-const hapi = require('@hapi/hapi');
-const express = require('express');
-const http = require('http');
-
-const serverHealth = require('../lib/health');
+import * as serverHealth from '../lib/health.js';
 
 describe('server health', () => {
-  // account for dynamic chai import until we migrate to ESM import/from
-  // Load chai before any tests run
-  before(async function () {
-    const chai = await import('chai');
-    assert = chai.assert;
-  });
-
   /**
    * Helper function to run requests against the health endpoint
    *
@@ -137,15 +127,13 @@ describe('server health', () => {
     {
       _server: null,
       name: 'hapi',
-      async start(done) {
+      start(done) {
         this._server = hapi.Server({ port: 8080, host: 'localhost' });
         serverHealth.exposeHealthEndpoint(this._server, '/health', 'hapi');
-        await this._server.start();
-        done();
+        this._server.start().then(() => done());
       },
-      async stop(done) {
-        await this._server.stop();
-        done();
+      stop(done) {
+        this._server.stop().then(() => done());
       },
     },
     {
