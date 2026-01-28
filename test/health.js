@@ -67,7 +67,11 @@ describe('server health', () => {
       const app = express();
       serverHealth.exposeHealthEndpoint(app, '/health', 'express');
 
-      const routes = app._router.stack.filter((layer) => !!layer.route).map((layer) => layer.route.path);
+      // express v4 app._router
+      // express v5 app.router
+      const router = app.router || app._router;
+
+      const routes = router.stack.filter((layer) => !!layer.route).map((layer) => layer.route.path);
 
       assert.include(routes, '/health');
     });
