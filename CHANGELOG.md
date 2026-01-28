@@ -1,5 +1,10 @@
 # Changelog
 
+# 6.1.0
+
+  * use express v5 for tests
+  * update dependencies
+
 # 6.0.0
 
   * requires Node.js v18+ / development happens on Node v22
