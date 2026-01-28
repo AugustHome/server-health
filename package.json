@@ -42,26 +42,26 @@
   "dependencies": {
     "@hapi/boom": "^10.0.1",
     "git-repo-info": "^2.1.1",
-    "lodash": "^4.17.21",
-    "restify-errors": "^8.0.2"
+    "lodash": "^4.17.23",
+    "restify-errors": "^8.1.0"
   },
   "devDependencies": {
-    "@hapi/hapi": "^21.4.0",
+    "@hapi/hapi": "^21.4.4",
     "c8": "^10.1.3",
-    "chai": "^5.2.0",
-    "eslint": "^9.22.0",
-    "eslint-config-prettier": "^10.1.1",
-    "eslint-plugin-jsdoc": "^50.6.6",
+    "chai": "^6.2.2",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jsdoc": "^62.4.1",
     "eslint-plugin-security": "^3.0.1",
-    "express": "^4.21.2",
-    "fastify": "^5.2.1",
+    "express": "^4.22.1",
+    "fastify": "^5.7.2",
     "husky": "^9.1.7",
-    "lint-staged": "^15.5.0",
-    "mocha": "^11.1.0",
+    "lint-staged": "^16.2.7",
+    "mocha": "^11.3.0",
     "mocha-multi": "^1.1.7",
-    "prettier": "^3.5.3",
+    "prettier": "^3.8.1",
     "restify": "^11.1.0",
-    "sinon": "^19.0.2"
+    "sinon": "^21.0.1"
   },
   "overrides": {
     "restify": {
