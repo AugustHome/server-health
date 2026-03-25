@@ -51,7 +51,7 @@
     "chai": "^6.2.2",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-jsdoc": "^62.5.0",
+    "eslint-plugin-jsdoc": "^50.8.0",
     "eslint-plugin-security": "^3.0.1",
     "express": "^5.2.1",
     "fastify": "^5.7.2",
