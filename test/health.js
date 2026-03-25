@@ -1,12 +1,19 @@
 import sinon from 'sinon';
 import fastify from 'fastify';
-import restify from 'restify';
 import hapi from '@hapi/hapi';
 import express from 'express';
 import http from 'node:http';
 import { assert } from 'chai';
 
 import * as serverHealth from '../lib/health.js';
+
+// restify uses process.binding('http_parser') which was removed in Node 24
+let restify;
+try {
+  restify = (await import('restify')).default;
+} catch {
+  // restify not available on this Node version
+}
 
 describe('server health', () => {
   /**
@@ -56,7 +63,11 @@ describe('server health', () => {
   }
 
   describe('exposeHealthEndpoint', () => {
-    it('adds a health endpoint with restify', () => {
+    it('adds a health endpoint with restify', function () {
+      if (!restify) {
+        return this.skip();
+      }
+
       const server = restify.createServer();
       serverHealth.exposeHealthEndpoint(server);
 
@@ -98,7 +109,7 @@ describe('server health', () => {
         this._server.close(done);
       },
     },
-    {
+    restify && {
       _server: null,
       name: 'restify',
       start(done) {
@@ -154,7 +165,7 @@ describe('server health', () => {
     },
   ];
 
-  for (const server of servers) {
+  for (const server of servers.filter(Boolean)) {
     describe(`healthHandler for ${server.name}`, () => {
       let checkStubOne;
       let checkStubTwo;
