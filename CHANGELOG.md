@@ -1,5 +1,10 @@
 # Changelog
 
+# 7.0.0
+
+  * drops support for Node.js v18
+  * drops support for restify on Node 24
+
 # 6.1.0
 
   * use express v5 for tests
