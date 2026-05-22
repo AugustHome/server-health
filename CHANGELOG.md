@@ -1,5 +1,11 @@
 # Changelog
 
+# 7.0.1
+
+  * update fastify to v5.8.5
+  * update fast-uri to v3.1.2
+  * bump lodash to v4.18.1
+
 # 7.0.0
 
   * drops support for Node.js v18
