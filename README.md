@@ -43,6 +43,38 @@ or native node http server returning vital information about a service.
 
 ## Usage
 
+### Configuring the /health response at init time
+
+Call `init()` before exposing the health endpoint to control which fields are
+returned by default. When `init()` is not called, the full response is returned
+(unchanged behavior).
+
+```js
+import serverHealth from 'server-health';
+
+serverHealth.init({
+  // whitelist — only these dot-path fields are returned
+  fields: ['status', 'uptime', 'service.version', 'connections'],
+
+  // or blacklist — omit sensitive fields (ignored when fields is set)
+  // exclude: ['env.cwd', 'env.pid', 'git', 'localTime'],
+
+  // optional custom top-level fields (include names in fields when using a whitelist)
+  custom: {
+    region: () => process.env.AWS_REGION,
+  },
+
+  includeGit: false,           // skip git metadata (default: true)
+  allowQueryFilter: true,      // honor ?filter= on top of init config (default: true)
+});
+
+serverHealth.addConnectionCheck('redis', () => redisClient.connected);
+serverHealth.exposeHealthEndpoint(server);
+```
+
+The `?filter=` query parameter still works and narrows the init-configured
+response further when `allowQueryFilter` is true.
+
 ### Adding the /health endpoint to a restify server
 
 See example/server.js for a complete example. Also check the tests for how to use this with hapi and express.
