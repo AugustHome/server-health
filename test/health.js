@@ -304,4 +304,196 @@ describe('server health', () => {
       });
     });
   }
+
+  describe('init config', () => {
+    let server;
+
+    /**
+     * Helper function to run requests against the health endpoint on a custom port
+     *
+     * @param {number} port - server port
+     * @param {string} [queryString] - optional query string
+     * @return {Promise.<Object>} Resolves over the server response with parsed body
+     */
+    function getHealthOnPort(port, queryString) {
+      let path = '/health';
+      if (queryString) {
+        path += '?' + queryString;
+      }
+
+      return new Promise((resolve, reject) => {
+        http
+          .get({ host: 'localhost', port, path }, (response) => {
+            let rawData = '';
+
+            response.setEncoding('utf8');
+            response.on('data', (chunk) => {
+              rawData += chunk;
+            });
+            response.on('end', () => {
+              try {
+                response.body = JSON.parse(rawData);
+              } catch {
+                // ignore JSON parse errors
+              }
+
+              resolve(response);
+            });
+          })
+          .on('error', reject);
+      });
+    }
+
+    afterEach((done) => {
+      if (server) {
+        server.close(() => {
+          serverHealth.resetForTesting();
+          done();
+        });
+      } else {
+        serverHealth.resetForTesting();
+        done();
+      }
+    });
+
+    beforeEach(() => {
+      serverHealth.resetForTesting();
+      server = null;
+    });
+
+    it('limits the response to configured fields', (done) => {
+      serverHealth.init({
+        fields: ['status', 'service.version', 'connections'],
+      });
+      serverHealth.addConnectionCheck('redis', sinon.stub().returns(true));
+
+      server = fastify();
+      serverHealth.exposeHealthEndpoint(server, '/health', 'fastify');
+      server.listen({ port: 8081 }, () => {
+        getHealthOnPort(8081)
+          .then((response) => {
+            assert.equal(response.statusCode, 200);
+            assert.deepEqual(Object.keys(response.body).sort(), ['connections', 'service', 'status']);
+            assert.nestedProperty(response.body, 'service.version');
+            assert.notProperty(response.body, 'uptime');
+            assert.notProperty(response.body, 'env');
+            assert.notProperty(response.body, 'git');
+          })
+          .then(() => done())
+          .catch(done);
+      });
+    });
+
+    it('excludes configured fields from the response', (done) => {
+      serverHealth.init({
+        exclude: ['env.cwd', 'env.pid', 'git', 'localTime'],
+      });
+      serverHealth.addConnectionCheck('redis', sinon.stub().returns(true));
+
+      server = fastify();
+      serverHealth.exposeHealthEndpoint(server, '/health', 'fastify');
+      server.listen({ port: 8081 }, () => {
+        getHealthOnPort(8081)
+          .then((response) => {
+            assert.equal(response.statusCode, 200);
+            assert.notProperty(response.body, 'localTime');
+            assert.notProperty(response.body, 'git');
+            assert.nestedProperty(response.body, 'env.nodeEnv');
+            assert.notNestedProperty(response.body, 'env.cwd');
+            assert.notNestedProperty(response.body, 'env.pid');
+          })
+          .then(() => done())
+          .catch(done);
+      });
+    });
+
+    it('adds custom fields to the response', (done) => {
+      serverHealth.init({
+        fields: ['status', 'region'],
+        custom: {
+          region: () => 'us-west-2',
+        },
+      });
+
+      server = fastify();
+      serverHealth.exposeHealthEndpoint(server, '/health', 'fastify');
+      server.listen({ port: 8081 }, () => {
+        getHealthOnPort(8081)
+          .then((response) => {
+            assert.deepEqual(response.body, {
+              status: 'ok',
+              region: 'us-west-2',
+            });
+          })
+          .then(() => done())
+          .catch(done);
+      });
+    });
+
+    it('narrows the init config further with query filter', (done) => {
+      serverHealth.init({
+        fields: ['status', 'uptime', 'env.nodeEnv'],
+      });
+
+      server = fastify();
+      serverHealth.exposeHealthEndpoint(server, '/health', 'fastify');
+      server.listen({ port: 8081 }, () => {
+        getHealthOnPort(8081, 'filter=status,env.nodeEnv')
+          .then((response) => {
+            assert.deepEqual(Object.keys(response.body).sort(), ['env', 'status']);
+            assert.property(response.body, 'status');
+            assert.nestedProperty(response.body, 'env.nodeEnv');
+            assert.notProperty(response.body, 'uptime');
+          })
+          .then(() => done())
+          .catch(done);
+      });
+    });
+
+    it('ignores query filter when allowQueryFilter is false', (done) => {
+      serverHealth.init({
+        fields: ['status', 'uptime'],
+        allowQueryFilter: false,
+      });
+
+      server = fastify();
+      serverHealth.exposeHealthEndpoint(server, '/health', 'fastify');
+      server.listen({ port: 8081 }, () => {
+        getHealthOnPort(8081, 'filter=status')
+          .then((response) => {
+            assert.property(response.body, 'uptime');
+            assert.property(response.body, 'status');
+          })
+          .then(() => done())
+          .catch(done);
+      });
+    });
+
+    it('skips connection checks when neither status nor connections are exposed', (done) => {
+      const checkStub = sinon.stub().returns(true);
+
+      serverHealth.init({
+        fields: ['uptime'],
+      });
+      serverHealth.addConnectionCheck('redis', checkStub);
+
+      server = fastify();
+      serverHealth.exposeHealthEndpoint(server, '/health', 'fastify');
+      server.listen({ port: 8081 }, () => {
+        getHealthOnPort(8081)
+          .then((response) => {
+            assert.isFalse(checkStub.called);
+            assert.deepEqual(response.body, { uptime: response.body.uptime });
+          })
+          .then(() => done())
+          .catch(done);
+      });
+    });
+
+    it('throws when init is called more than once', () => {
+      serverHealth.init({ fields: ['status'] });
+
+      assert.throws(() => serverHealth.init({ fields: ['uptime'] }), /can only be called once/);
+    });
+  });
 });
