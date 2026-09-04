@@ -4,6 +4,7 @@
 
 * Requires Node.js v22+, drops support for Node 20. Development happens on Node v26
 * update eslint to v10
+* Treats throwing connection checks as failing
 
 ## 7.0.1
 
