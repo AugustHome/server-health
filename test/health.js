@@ -303,6 +303,35 @@ describe('server health', () => {
           });
         });
       });
+
+      describe('connection check that throws', () => {
+        before(function addThrowingCheck() {
+          serverHealth.resetConnectionCheck();
+          serverHealth.addConnectionCheck('throwingCheck', sinon.stub().throws(new Error('connection check blew up')));
+        });
+
+        it('returns a 500 if a connection check throws', () => {
+          return getHealth().then((response) => {
+            assert.equal(response.statusCode, 500);
+          });
+        });
+
+        it('returns a status=fail listing the throwing connection', () => {
+          return getHealth().then((response) => {
+            assert.equal(response.body.status, 'fail:throwingCheck');
+          });
+        });
+
+        it('reports the throwing connection as failed and keeps the healthy ones', () => {
+          return getHealth().then((response) => {
+            assert.deepEqual(response.body.connections, {
+              throwingCheck: 'fail',
+              one: 'ok',
+              two: 'ok',
+            });
+          });
+        });
+      });
     });
   }
 });
