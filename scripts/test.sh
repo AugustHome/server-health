@@ -40,17 +40,11 @@ MOCHA_BIN=${MOCHA}
 MOCHA_OPTS="--exit \
  --timeout 10000 \
  --colors \
- --ui bdd"
+ --ui bdd \
+ --reporter=list"
 
 if [ ${CI} ]; then
-  # Running in CI
-  MOCHA_OPTS="${MOCHA_OPTS} \
-    --forbid-only \
-    --reporter=mocha-multi \
-    --reporter-options list=-,xunit=./test-results/mocha.xml"
-else
-  MOCHA_OPTS="${MOCHA_OPTS} \
-    --reporter=list"
+  MOCHA_OPTS="${MOCHA_OPTS} --forbid-only"
 fi
 
 # what to test
