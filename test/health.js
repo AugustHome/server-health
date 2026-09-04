@@ -278,6 +278,7 @@ describe('server health', () => {
         it('returns a status=fail listing the failing connections', () => {
           return getHealth().then((response) => {
             assert.equal(response.body.status, 'fail:failingConnectionTest');
+            assert.equal(response.body.connections.failingConnectionTest, 'fail');
           });
         });
       });
