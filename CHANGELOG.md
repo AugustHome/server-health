@@ -1,6 +1,6 @@
 # Changelog
 
-## 8.0.0 (unreleased)
+## 8.0.0
 
 * Requires Node.js v22+, drops support for Node 20. Development happens on Node v26
 * update eslint to v10
