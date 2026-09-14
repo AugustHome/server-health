@@ -278,6 +278,7 @@ describe('server health', () => {
         it('returns a status=fail listing the failing connections', () => {
           return getHealth().then((response) => {
             assert.equal(response.body.status, 'fail:failingConnectionTest');
+            assert.equal(response.body.connections.failingConnectionTest, 'fail');
           });
         });
       });
@@ -298,6 +299,35 @@ describe('server health', () => {
             assert.deepEqual(response.body, {
               code: 'Internal',
               message: 'connection check for invalidHealthCheck must return boolean, got string',
+            });
+          });
+        });
+      });
+
+      describe('connection check that throws', () => {
+        before(function addThrowingCheck() {
+          serverHealth.resetConnectionCheck();
+          serverHealth.addConnectionCheck('throwingCheck', sinon.stub().throws(new Error('connection check blew up')));
+        });
+
+        it('returns a 500 if a connection check throws', () => {
+          return getHealth().then((response) => {
+            assert.equal(response.statusCode, 500);
+          });
+        });
+
+        it('returns a status=fail listing the throwing connection', () => {
+          return getHealth().then((response) => {
+            assert.equal(response.body.status, 'fail:throwingCheck');
+          });
+        });
+
+        it('reports the throwing connection as failed and keeps the healthy ones', () => {
+          return getHealth().then((response) => {
+            assert.deepEqual(response.body.connections, {
+              throwingCheck: 'fail',
+              one: 'ok',
+              two: 'ok',
             });
           });
         });
